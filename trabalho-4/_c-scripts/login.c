@@ -39,7 +39,11 @@ char *capturaQuery (const char varname[15], const char query_string[255])
 int main() {
 	FILE *fp = fopen("../trabalho-4/_registros/usuarios.txt", "a+");
 	if (fp == NULL) die("Impossivel acessar o arquivo");
-	char *dados = getenv("QUERY_STRING");
+
+	// Pega os dados da entrada-padrão
+	// todo E se a entrada-padrão estiver vazia?
+    char dados[100];
+    fgets(dados, sizeof(dados), stdin);
 
     //prefixo db_ = DataBase, ou seja, se refere aos dados salvos no arquivo
 	char usrName[255], db_usrName[255], nome[255], aux[5];
@@ -76,36 +80,51 @@ int main() {
 	if (login) {
 
 	    // LOGIN APROVADO
-		printf("Login aprovado!\nBem-vindo, %s.\n", nome);
+		printf("Login aprovado! Bem-vindo, %s.<br><br>", nome);
+		printf(
+		    "<form method=\"post\" action=\"post-it.cgi\">"
+		        "<input name=\"msg\" placeholder=\"Digite o post aqui\">"
+		        "<input type=\"submit\" value=\"Enviar\">"
+		    "</form>"
+		    "<br>"
+		    "<br>"
+		    "<br>"
+		);
 
         // Gera o arquivo de destino temporario do usuario
         FILE *fp;
         /* todo O nome do arquivo deve ser randomizado. O mesmo arquivo deve ser excluído no logout */
         if ( (fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w")) == NULL )
-            printf("<strong>Abertura do arquivo de acesso falhou!</strong>");
+            printf(
+                "<strong>Abertura do arquivo de acesso falhou!</strong>"
+                "<script>window.stop()</script>"
+             );
 
         // Abre o arquivo de postagens
         FILE *posts;
         if ( (posts = fopen("../trabalho-4/_registros/postagens.txt", "r")) == NULL )
-            printf("<strong>Abertura do arquivo de postagens falhou!</strong>");
+            printf(
+                "<strong>Abertura do arquivo de postagens falhou!</strong>"
+                "<script>window.stop()</script>"
+            );
 
 
         /**** Escreve o conteudo adequado no arquivo de destino ****/
-        // todo De fato, escrever as coisas em um arquivo.
+        // todo De fato, escrever as coisas em um arquivo e redirecionar.
         char fullQuery[522], postName[522], postMsg[522];
         char auxNome[522], auxMsg[522];
 
         for (int i = 0; i < MAX_POST; i++) {
             // Pega a query completa
             fgets(fullQuery, sizeof(fullQuery), posts);
-            printf("<br>Query completa: %s<br>", fullQuery);
+            printf("Query completa: %s<br>", fullQuery);
 
             // salva as variaveis
             strcpy(postName, capturaQuery("user", fullQuery));
             strcpy(postMsg, capturaQuery("msg", fullQuery));
 
-            printf("Postado por: %s<br>", postName);
-            printf("Mensagem: %s<br><hr>", postMsg);
+            printf("<strong>Postado por</strong>: %s<br>", postName);
+            printf("<strong>Mensagem</strong>: %s<br><hr>", postMsg);
         }
 
 	} else {
