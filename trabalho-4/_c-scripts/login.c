@@ -49,8 +49,6 @@ int main() {
     // Captura os dados digitados pelo usuário
     strcpy(usrName, capturaQuery("usrname", dados));
     strcpy(aux, capturaQuery("pin", dados));
-//	capturaQuery("usrname", dados, usrName);
-//	capturaQuery("pin",     dados, aux    );
 	pin = atoi(aux);
 
     // escaneia até achar a combinação ou até o fim do arquivo
@@ -82,6 +80,7 @@ int main() {
 
         // Gera o arquivo de destino temporario do usuario
         FILE *fp;
+        /* todo O nome do arquivo deve ser randomizado. O mesmo arquivo deve ser excluído no logout */
         if ( (fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w")) == NULL )
             printf("<strong>Abertura do arquivo de acesso falhou!</strong>");
 
@@ -92,6 +91,7 @@ int main() {
 
 
         /**** Escreve o conteudo adequado no arquivo de destino ****/
+        // todo De fato, escrever as coisas em um arquivo.
         char fullQuery[522], postName[522], postMsg[522];
         char auxNome[522], auxMsg[522];
 
@@ -107,23 +107,6 @@ int main() {
             printf("Postado por: %s<br>", postName);
             printf("Mensagem: %s<br><hr>", postMsg);
         }
-
-
-//        for (int i = 0; i < MAX_POST; i++) {
-//            // Pega a query inteira a partir do arquivo
-//            fgets(fullQuery, sizeof(fullQuery), posts);
-//
-//            // Decompoe
-//            strcpy(nomePost, capturaQuery("nome", fullQuery));
-//            strcpy(msgPost,  capturaQuery("msg",  fullQuery));
-//
-//            // Escreve o resultado
-//            fprintf(fp, "Autor: %s<br>", nomePost);
-//            fprintf(fp, "Mensagem: %s<br><hr>", msgPost);
-//        }
-
-        // Redireciona o usuario para o arquivo de destino
-		// printf("<script>window.location='../trabalho-4/_registros/vinql-4578754acss.html'</script>");
 
 	} else {
 
