@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Azkaboard</title>
+    <script src="_js-scripts/cookies.js"></script>
+</head>
+
+<body>
+
+<button onclick="isLoggedIn()">Verifica login</button>
+<button onclick="setLogin()">Faz o login</button>
+<button onclick="destroyCookie('loggedin')">Faz o logout</button>
+
+<form method="get" action="../cgi-bin/login.cgi">
+    <h1>Login</h1>
+    <input name="usrname" placeholder="usr name" autocomplete="off">
+    <input name="pin" placeholder="pin" autocomplete="off">
+
+    <input type="submit" value="Enviar">
+</form>
+</body>
+
+</html>
