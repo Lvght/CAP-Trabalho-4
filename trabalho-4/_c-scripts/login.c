@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_POST 5
+
 void die(const char msg[255]) {
 	printf("\n%s\n", msg);
 	exit(1);
@@ -63,14 +65,24 @@ int main() {
 	    // LOGIN APROVADO
 		// printf("Login aprovado!\nBem-vindo, %s.\n", nome);
 
-		FILE *fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w");
-		FILE *posts = fopen("../trabalho-4/_registros/postagens.txt", "r");
+        // Gera o arquivo de destino temporario do usuario
+        FILE *fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w");
 
-		fprintf(fp, "%s %d", "Teste -- ", 1111);
+        // Abre o arquivo de postagens
+        FILE *posts = fopen("../trabalho-4/_registros/postagens.txt", "r");
 
+
+        /**** Escreve o conteudo adequado no arquivo de destino ****/
+        char nomePost[100], msgPost[255];
+
+        for (int i = 0; i < MAX_POST; i++) {
+            fscanf(posts, "%*d %s %*d %*d %[^\n]", nomePost, msgPost);
+            fprintf(fp, "Autor: %s<br>", nomePost);
+            fprintf(fp, "Mensagem: %s<br>", msgPost);
+        }
+
+        // Redireciona o usuario para o arquivo de destino
 		printf("<script>window.location='../trabalho-4/_registros/vinql-4578754acss.html'</script>");
-
-
 
 	} else {
 
