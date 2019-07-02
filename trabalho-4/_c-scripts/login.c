@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_POST 5
+#define MAX_POST 7
 
 void die(const char msg[255]) {
 	printf("\n%s\n", msg);
 	exit(1);
 }
 
-void capturaQuery (char varname[15], char query_string[255], char resposta[10])
+char *capturaQuery (const char varname[15], const char query_string[255])
 {
     char *p;
+    char resposta[500];
     char *q = resposta;
     //necessario incluir a biblioteca <string.h>
     p = strstr(query_string, varname);
@@ -30,6 +31,9 @@ void capturaQuery (char varname[15], char query_string[255], char resposta[10])
         p++;
     }
     *q = '\0';
+
+    char *out = resposta;
+    return out;
 }
 
 int main() {
@@ -43,8 +47,10 @@ int main() {
 	int login = 0;
 
     // Captura os dados digitados pelo usuário
-	capturaQuery("usrname", dados, usrName);
-	capturaQuery("pin",     dados, aux    );
+    strcpy(usrName, capturaQuery("usrname", dados));
+    strcpy(aux, capturaQuery("pin", dados));
+//	capturaQuery("usrname", dados, usrName);
+//	capturaQuery("pin",     dados, aux    );
 	pin = atoi(aux);
 
     // escaneia até achar a combinação ou até o fim do arquivo
@@ -58,31 +64,66 @@ int main() {
 	}
 
 	// resultados
-	printf("Content-Type: text/html\n\n");
+	printf(
+	    "Content-Type: text/html\n\n"
+	    "<!doctype html>"
+        "<html>"
+
+        "<head>"
+            "<meta charset=\"UTF-8\">"
+            "<title>Azkaboard</title>"
+        "</head>"
+	);
 
 	if (login) {
 
 	    // LOGIN APROVADO
-		// printf("Login aprovado!\nBem-vindo, %s.\n", nome);
+		printf("Login aprovado!\nBem-vindo, %s.\n", nome);
 
         // Gera o arquivo de destino temporario do usuario
-        FILE *fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w");
+        FILE *fp;
+        if ( (fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w")) == NULL )
+            printf("<strong>Abertura do arquivo de acesso falhou!</strong>");
 
         // Abre o arquivo de postagens
-        FILE *posts = fopen("../trabalho-4/_registros/postagens.txt", "r");
+        FILE *posts;
+        if ( (posts = fopen("../trabalho-4/_registros/postagens.txt", "r")) == NULL )
+            printf("<strong>Abertura do arquivo de postagens falhou!</strong>");
 
 
         /**** Escreve o conteudo adequado no arquivo de destino ****/
-        char nomePost[100], msgPost[255];
+        char fullQuery[522], postName[522], postMsg[522];
+        char auxNome[522], auxMsg[522];
 
         for (int i = 0; i < MAX_POST; i++) {
-            fscanf(posts, "%*d %s %*d %*d %[^\n]", nomePost, msgPost);
-            fprintf(fp, "Autor: %s<br>", nomePost);
-            fprintf(fp, "Mensagem: %s<br>", msgPost);
+            // Pega a query completa
+            fgets(fullQuery, sizeof(fullQuery), posts);
+            printf("<br>Query completa: %s<br>", fullQuery);
+
+            // salva as variaveis
+            strcpy(postName, capturaQuery("user", fullQuery));
+            strcpy(postMsg, capturaQuery("msg", fullQuery));
+
+            printf("Postado por: %s<br>", postName);
+            printf("Mensagem: %s<br><hr>", postMsg);
         }
 
+
+//        for (int i = 0; i < MAX_POST; i++) {
+//            // Pega a query inteira a partir do arquivo
+//            fgets(fullQuery, sizeof(fullQuery), posts);
+//
+//            // Decompoe
+//            strcpy(nomePost, capturaQuery("nome", fullQuery));
+//            strcpy(msgPost,  capturaQuery("msg",  fullQuery));
+//
+//            // Escreve o resultado
+//            fprintf(fp, "Autor: %s<br>", nomePost);
+//            fprintf(fp, "Mensagem: %s<br><hr>", msgPost);
+//        }
+
         // Redireciona o usuario para o arquivo de destino
-		printf("<script>window.location='../trabalho-4/_registros/vinql-4578754acss.html'</script>");
+		// printf("<script>window.location='../trabalho-4/_registros/vinql-4578754acss.html'</script>");
 
 	} else {
 

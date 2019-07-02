@@ -1,6 +1,7 @@
-000001 vinql 0 0 Ola mundo!
-000002 ana   0 0 Isto é um teste
-000003 isa   0 0 e aparentemente esta funcionando
-000004 thamy 0 0 Lorem ipsum dolor sit amet
-000005 gabi  0 0 Lorem ipsum dolor sit amet
-000006 julia 0 0 Lorem ipsum dolor sit amet
+id=1&user=vinql&likes=0&deslikes=0&msg=Mensagem qualquer vai aqui
+id=2&user=vinql&likes=0&deslikes=0&msg=Lorem ipsum dolor sit amet
+id=3&user=vinql&likes=0&deslikes=0&msg=Lorem ipsum dolor sit amet
+id=4&user=vinql&likes=0&deslikes=0&msg=Lorem ipsum dolor sit amet
+id=5&user=vinql&likes=0&deslikes=0&msg=Lorem ipsum dolor sit amet
+id=6&user=vinql&likes=0&deslikes=0&msg=Lorem ipsum dolor sit amet
+id=7&user=vinql&likes=0&deslikes=0&msg=Lorem ipsum dolor sit amet
