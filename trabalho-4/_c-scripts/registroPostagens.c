@@ -89,12 +89,12 @@ int main()
     postUser.deslike = 0;
     strcpy(postUser.msg, mensagem);
 
-    fp = fopen("../registroPostagens.bin", "rb");
+    fp = fopen("../trabalho-4/_registros/registrosPostagens.bin", "rb");
     if (fp == NULL)
         auxiliar = 1;
     fclose(fp);
 
-    fp = fopen("../registroPostagens.bin", "a+b");
+    fp = fopen("../trabalho-4/_registros/registrosPostagens.bin", "a+b");
     if (auxiliar)
         postUser.ID = 1;
     else
@@ -104,7 +104,7 @@ int main()
         postUser.ID = auxiliarID + 1;
     }
     fclose(fp);
-    fp = fopen("../registroPostagens.bin", "a+b");
+    fp = fopen("../trabalho-4/_registros/registrosPostagens.bin", "a+b");
     fwrite(&postUser, sizeof(postUser), 1, fp);
     fclose(fp);
 
