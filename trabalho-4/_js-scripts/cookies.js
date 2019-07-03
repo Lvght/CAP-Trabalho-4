@@ -3,9 +3,9 @@
 // veriifica se o cookie de login existe
 function isLoggedIn() {
     if (getCookie("loggedin") == undefined) {
-        window.location = "http://google.com";
+        alert("Não fez login!");
     } else {
-        alert("It worked!");
+        alert("O login foi validado!");
     }
 }
 

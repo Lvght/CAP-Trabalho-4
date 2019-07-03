@@ -77,18 +77,38 @@ int main() {
         "</head>"
 	);
 
-	if (login) {
+	if (!login) {
 
+	    // LOGIN RECUSADO
+	    printf(
+	        "<h1>Não foi possível verificar seu login</h1>"
+	        "<p>Verifique seus dados e tente novamente</p>"
+	        "<form method=\"post\" action=\"login.cgi\">"
+	            "<input name=\"usrname\" placeholder=\"Nome de usuário\">"
+	            "<input name=\"pin\" placeholder=\"Código de acesso\">"
+	            "<input type=\"submit\" value=\"Fazer login\">"
+	        "</form>"
+	        "<hl>"
+	        "<br>"
+	        "<br>"
+	        "<a href=\"../trabalho-4/index.html\">Voltar para a página inicial</a>"
+	    );
+
+	} else {
 	    // LOGIN APROVADO
 		printf("Login aprovado! Bem-vindo, %s.<br><br>", nome);
 		printf(
 		    "<form method=\"post\" action=\"post-it.cgi\">"
+		        "<input name=\"usrname\" type=\"hidden\" value=\"%s\">"
+		        "<input name=\"pin\" type=\"hidden\" value=\"%d\">"
 		        "<input name=\"msg\" placeholder=\"Digite o post aqui\">"
 		        "<input type=\"submit\" value=\"Enviar\">"
 		    "</form>"
 		    "<br>"
 		    "<br>"
-		    "<br>"
+		    "<br>",
+
+		    usrName, pin
 		);
 
         // Gera o arquivo de destino temporario do usuario
@@ -126,11 +146,6 @@ int main() {
             printf("<strong>Postado por</strong>: %s<br>", postName);
             printf("<strong>Mensagem</strong>: %s<br><hr>", postMsg);
         }
-
-	} else {
-
-	    // LOGIN RECUSADO
-		printf("Login recusado\n");
 
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" uploadOnCheckin="bca9ed8d-9423-4c54-97d2-0ea1ff8261ed">
     <serverData>
       <paths name="Servidor UFSCar">
         <serverdata>
@@ -10,5 +10,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="Servidor UFSCar" />
   </component>
 </project>
