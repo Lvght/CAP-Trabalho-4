@@ -51,10 +51,21 @@ void getLastestPost(int n, const char path[255])
         {
             fseek(fp, -i*(sizeof(nPostagem)), SEEK_END);
             fread(&nPostagem, sizeof(nPostagem), 1, fp);
-            printf ("Usuario: %s\n", nPostagem.usrOrigem);
-            printf ("%s\n", nPostagem.msg);
-            printf ("Likes: %d Deslikes: %d\n", nPostagem.like, nPostagem.deslike);
-            printf ("\n");
+
+            printf(
+                   "<div class='postagem'>\n"
+                   "    <span class='usrname'>Usuário: %s</span>\n"
+                   "    <span class='msg'>Mensagem: %s</span>\n"
+                   "    <span class='like'>Like: %d</span>\n"
+                   "    <span class='deslike'>Deslikes: %d</span> <br><br>\n"
+                   "</div>",
+                   nPostagem.usrOrigem, nPostagem.msg, nPostagem.like, nPostagem.deslike
+                   );
+
+//            printf ("Usuario: %s\n", nPostagem.usrOrigem);
+//            printf ("%s\n", nPostagem.msg);
+//            printf ("Likes: %d Deslikes: %d\n", nPostagem.like, nPostagem.deslike);
+//            printf ("\n");
             i++;
         }
     }
@@ -79,12 +90,11 @@ int main() {
     // Imprime as informações de cabeçalho
     printf(
             "Content-Type: text/html\n\n"
-            "<!doctype html>"
-            "<html>"
-
-            "<head>"
-            "<meta charset=\"UTF-8\">"
-            "<title>Azkaboard</title>"
+            "<!doctype html>\n"
+            "<head>\n"
+            "    <meta charset=\"UTF-8\">\n"
+            "    <title>Azkaboard</title>\n"
+            "    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>\n"
             "</head>"
     );
 
@@ -95,6 +105,17 @@ int main() {
         nomeComp, usrName
     );
 
+    // imprime um formulário para efetuar as postagens
+    printf(
+        "<form id='form-post' action='armazenarPostagem.cgi' method='post'>"
+            "<input type='hidden' name='login' value='%s'>"
+            "<input type='hidden' name='senha' value='%d'>"
+            "<input type='text' name='post'>"
+            "<input type='submit' value='Enviar'>"
+        "</form>",
+        usrName, pin
+    );
 
+    getLastestPost(5, "../trabalho-4/_registros/registroPostagens.bin");
 
 }
