@@ -84,21 +84,44 @@ int main()
     fclose(fp);
 
 
-    printf("%s%c%c\n", "Content-Type:text/html;charset=UTF-8",13,10);
-    printf ("<!DOCTYPE html>");
-    printf ("<html lang=\"pt-br\">");
-    printf ("<head>");
-    printf ("<title>Aba de Postagem</title>");
-    printf ("<meta charset=\"utf-8\">");
-    printf ("</head>");
-    printf ("<body>");
-    printf ("<form method=\"post\" action=\"postagem.cgi\" id=\"autosend\">");
-    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-    printf ("</form>");
-    printf ("<script>");
-    printf ("document.getElementById(\"autosend\").submit();");
-    printf ("</script>");
-    printf ("</body>");
-    printf ("</html>");
+    printf(
+            "Content-Type: text/html\n\n"
+            "<!doctype html>"
+            "<html>"
+
+            "<head>"
+            "<meta charset=\"UTF-8\">"
+            "<title>Azkaboard</title>"
+            "</head>"
+    );
+
+    // Imprime um formulário oculto para preservar as informações do usuário
+    printf(
+            "<form method=\"post\" action=\"dashboard.cgi\" id=\"autosend\">"
+            "<input type=\"hidden\" value=\"%s\" name=\"usrname\">"
+            "<input type=\"hidden\" value=\"%d\" name=\"pin\">"
+            "<input type=\"hidden\" value=\"%s\" name=\"nomeComp\">"
+            "</form>"
+
+            "<script>"
+            "document.getElementById(\"autosend\").submit();"
+            "</script>",
+            login, senha
+    );
+//    printf ("<!DOCTYPE html>");
+//    printf ("<html lang=\"pt-br\">");
+//    printf ("<head>");
+//    printf ("<title>Aba de Postagem</title>");
+//    printf ("<meta charset=\"utf-8\">");
+//    printf ("</head>");
+//    printf ("<body>");
+//    printf ("<form method=\"post\" action=\"postagem.cgi\" id=\"autosend\">");
+//    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
+//    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
+//    printf ("</form>");
+//    printf ("<script>");
+//    printf ("document.getElementById(\"autosend\").submit();");
+//    printf ("</script>");
+//    printf ("</body>");
+//    printf ("</html>");
 }

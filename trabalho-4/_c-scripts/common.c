@@ -39,3 +39,13 @@ char *capturaQuery (const char varname[15], const char query_string[255])
     char *out = resposta;
     return out;
 }
+
+typedef struct {
+    int id;
+    char usrname[25];
+    char fullName[60];
+    int pin;
+    char profilePicture[255];
+    int likes;
+    int deslikes;
+} usuario;
