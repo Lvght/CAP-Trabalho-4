@@ -9,6 +9,19 @@ void die(const char msg[255]) {
 	exit(1);
 }
 
+void pageRedirect(const char usrName[15], int pin, const char path[255]) {
+
+}
+
+typedef struct x
+{
+    int ID;
+    char usrOrigem[10];
+    int like;
+    int deslike;
+    char msg[180];
+} postagem;
+
 char *capturaQuery (const char varname[15], const char query_string[255])
 {
     char *p;
@@ -96,56 +109,74 @@ int main() {
 
 	} else {
 	    // LOGIN APROVADO
-		printf("Login aprovado! Bem-vindo, %s.<br><br>", nome);
-		printf(
-		    "<form method=\"post\" action=\"post-it.cgi\">"
-		        "<input name=\"usrname\" type=\"hidden\" value=\"%s\">"
-		        "<input name=\"pin\" type=\"hidden\" value=\"%d\">"
-		        "<input name=\"msg\" placeholder=\"Digite o post aqui\">"
-		        "<input type=\"submit\" value=\"Enviar\">"
-		    "</form>"
-		    "<br>"
-		    "<br>"
-		    "<br>",
 
-		    usrName, pin
-		);
+	    // Imprime um formulário oculto para preservar as informações do usuário
+        printf(
+        "<form method=\"post\" action=\"dashboard.cgi\" id=\"autosend\">"
+            "<input type=\"hidden\" value=\"%s\" name=\"usrname\">"
+            "<input type=\"hidden\" value=\"%d\" name=\"pin\">"
+            "<input type=\"hidden\" value=\"%s\" name=\"nomeComp\">"
+        "</form>"
 
-        // Gera o arquivo de destino temporario do usuario
-        FILE *fp;
-        /* todo O nome do arquivo deve ser randomizado. O mesmo arquivo deve ser excluído no logout */
-        if ( (fp = fopen("../trabalho-4/_registros/vinql-4578754acss.html", "w")) == NULL )
-            printf(
-                "<strong>Abertura do arquivo de acesso falhou!</strong>"
-                "<script>window.stop()</script>"
-             );
-
-        // Abre o arquivo de postagens
-        FILE *posts;
-        if ( (posts = fopen("../trabalho-4/_registros/postagens.txt", "r")) == NULL )
-            printf(
-                "<strong>Abertura do arquivo de postagens falhou!</strong>"
-                "<script>window.stop()</script>"
-            );
-
-
-        /**** Escreve o conteudo adequado no arquivo de destino ****/
-        // todo De fato, escrever as coisas em um arquivo e redirecionar.
-        char fullQuery[522], postName[522], postMsg[522];
-        char auxNome[522], auxMsg[522];
-
-        for (int i = 0; i < MAX_POST; i++) {
-            // Pega a query completa
-            fgets(fullQuery, sizeof(fullQuery), posts);
-            printf("Query completa: %s<br>", fullQuery);
-
-            // salva as variaveis
-            strcpy(postName, capturaQuery("user", fullQuery));
-            strcpy(postMsg, capturaQuery("msg", fullQuery));
-
-            printf("<strong>Postado por</strong>: %s<br>", postName);
-            printf("<strong>Mensagem</strong>: %s<br><hr>", postMsg);
-        }
-
+        "<script>"
+            "document.getElementById(\"autosend\").submit();"
+        "</script>",
+        usrName, pin, nome
+        );
+//
+//
+//
+//		printf(
+//		    "<h1>Login aprovado!</h1>"
+//		    "Bem-vindo, <strong>%s</strong>.</h1><br><br>",
+//		    nome
+//		);
+//
+//		// Imprime o formulario de postagens
+//		printf(
+//		    "<form method=\"post\" action=\"post-it.cgi\">"
+//		        "<input name=\"usrname\" type=\"hidden\" value=\"%s\">"
+//		        "<input name=\"pin\" type=\"hidden\" value=\"%d\">"
+//		        "<input name=\"msg\" placeholder=\"Digite o post aqui\">"
+//		        "<input type=\"submit\" value=\"Enviar\">"
+//		    "</form>"
+//		    "<br>"
+//		    "<br>"
+//		    "<br>",
+//
+//		    usrName, pin
+//		);
+//
+//        // Abre o arquivo de postagens
+//        FILE *posts;
+//        if ( (posts = fopen("../trabalho-4/_registros/postagens.txt", "r")) == NULL )
+//            printf(
+//                "<strong>Abertura do arquivo de postagens falhou!</strong>"
+//                "<script>window.stop()</script>"
+//            );
+//
+//
+//        /** EXIBE AS POSTAGENS **/
+//        postagem nPostagem;
+//        FILE *getposts;
+//
+//        /**** Escreve o conteudo adequado no arquivo ****/
+//        char fullQuery[522], postName[522], postMsg[522];
+//        char auxNome[522], auxMsg[522];
+//
+//        for (int i = 0; i < MAX_POST; i++) {
+//            // Pega a query completa
+//            fgets(fullQuery, sizeof(fullQuery), getposts);
+//            printf("Query completa: %s<br>", fullQuery);
+//
+//            // salva as variaveis
+//            strcpy(postName, capturaQuery("user", fullQuery));
+//            strcpy(postMsg, capturaQuery("msg", fullQuery));
+//
+//            // exibe os dados
+//            printf("<strong>Postado por</strong>: %s<br>", postName);
+//            printf("<strong>Mensagem</strong>: %s<br><hr>", postMsg);
+//        }
+//
 	}
 }
