@@ -27,9 +27,9 @@ int main() {
     FILE *ptrPostagem = fopen("../trabalho-4/_registros/postagens.bin", "wb");
 
     // Monta os valores de sentinela de usuario
-    u.id = -1;
-    u.pin = 0;
+    u.id = 0;
     strcpy(u.usrname, "std_usrname");
+    strcpy(u.password, "std_password");
     strcpy(u.fullName, "std_fullname");
     u.likes = -1;
     u.deslikes = -1;

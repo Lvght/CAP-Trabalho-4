@@ -19,7 +19,6 @@ int main() {
     // Lê os dados recebidos da página anterior
     fgets(dados, sizeof(dados), stdin);
     printf("%s", dados);
-//    exit(0);
 
     /*** Extrai os dados recebidos da página HTML e monta o objeto ***/
     // ID
@@ -29,16 +28,13 @@ int main() {
     // Nome de usuário
     strcpy(x.usrname, capturaQuery("usrname", dados));
     printf("<br><br>Nome de usuario: %s", x.usrname);
-//    exit(0);
 
     // Nome completo
     strcpy(x.fullName, capturaQuery("fullname", dados));
     printf("<br><br>Nome completo: %s", x.fullName);
-//    exit(0);
 
-    // Código numérico (PIN)
-    strcpy(aux, capturaQuery("pin", dados));
-    x.pin = atoi(aux);
+    // Senha
+    strcpy(x.password, capturaQuery("password", dados));
 
     // Likes
     x.likes = 0;
@@ -63,8 +59,8 @@ int main() {
 
 //    exit(0);
 
-    printf("<p>Os dados recebidos foram:</p>\n<p>Nome completo: %s</p>\n<p>Nome de usuário: %s</p>\n<p>Senha: %d</p>",
-    x.fullName, x.usrname, x.pin);
+    printf("<p>Os dados recebidos foram:</p>\n<p>Nome completo: %s</p>\n<p>Nome de usuário: %s</p>\n<p>Senha: %s</p>",
+    x.fullName, x.usrname, x.password);
 
     /*** Salva os dados no arquivo de registro ***/
     // Abertura do arquivo e exibição de erro caso a abertura falhe
@@ -85,6 +81,6 @@ int main() {
 
     /*** Exibição do resultado ***/
 
-    printf("<p>Voce foi cadastrado com sucesso</p>\n<a href='../../cgi-bin/dashboard.cgi'></a>");
+    printf("<p>Voce foi cadastrado com sucesso</p>\n<a href='../../cgi-bin/dashboard.cgi'>Ir para a dashboard ></a>");
 
 }

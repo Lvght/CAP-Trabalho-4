@@ -20,30 +20,42 @@ int main() {
     fgets(dados, sizeof(dados), stdin);
 
     //prefixo db_ = DataBase, ou seja, se refere aos dados salvos no arquivo
-	char usrName[255], db_usrName[255], nome[255], aux[5];
-	int pin, db_pin;
+	char usrName[255], db_usrName[255], nome[255], aux[5], password[45];
 	int login = 0;
 
     // Captura os dados digitados pelo usuário
     strcpy(usrName, capturaQuery("usrname", dados));
-    strcpy(aux, capturaQuery("pin", dados));
-	pin = atoi(aux);
+    strcpy(password, capturaQuery("password", dados));
 
     // escaneia até achar a combinação ou até o fim do arquivo
     fseek(fp, 0, SEEK_SET);
     fread(&db, sizeof(db), 1, fp);
 
     printf("Content-Type: text/html\n\n");
+    printf("Senha recebida: %s<br><br>", password);
+
+    int namecheck = 0;
+    int passcheck = 0;
 
 	while ( !feof(fp) && !login ) {
         fread(&db, sizeof(db), 1, fp);
 
-        printf(" | Nome: %s | Senha: %d <br><br>", db.usrname, db.pin);
+        printf(" | Nome: %s | Senha: %s <br><br>", db.usrname, db.password);
 
-//		// strcmp retorna 0 caso ambas as strings sejam iguais
-//		// compara os dados capturados com os do arquivo
-		if (!strcmp(db.usrname, usrName) && db.pin == pin)
-			login = 1;
+        // strcmp retorna 0 caso ambas as strings sejam iguais
+		// compara os dados capturados com os do arquivo
+
+		if ( !strcmp(db.usrname, usrName) )
+		    namecheck = 1;
+
+        if ( !strcmp(db.password, password) )
+            passcheck = 1;
+
+        if (passcheck && namecheck)
+            login = 1;
+
+//		if ( (!strcmp(db.usrname, usrName)) && (!strcpy(db.password, password)) )
+//			login = 1;
 	}
 
 	// resultados
@@ -66,7 +78,7 @@ int main() {
 	        "<p>Verifique seus dados e tente novamente</p>"
 	        "<form method=\"post\" action=\"login.cgi\">"
 	            "<input name=\"usrname\" placeholder=\"Nome de usuário\">"
-	            "<input name=\"pin\" placeholder=\"Código de acesso\">"
+	            "<input name=\"password\" placeholder=\"Código de acesso\">"
 	            "<input type=\"submit\" value=\"Fazer login\">"
 	        "</form>"
 	        "<hl>"
