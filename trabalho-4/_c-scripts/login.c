@@ -8,7 +8,10 @@
 
 int main() {
 	FILE *fp = fopen("../trabalho-4/_registros/usuarios.bin", "rb");
-	if (fp == NULL) die("Impossivel acessar o arquivo");
+	if (fp == NULL) die("Content-Type: text/html\n\nImpossivel acessar o arquivo");
+
+
+    printf("Content-Type: text/html\n\n");
 
 
 	// Cria um objeto do tipo usuário para armazenar as informações do arquivo de dados
@@ -19,8 +22,10 @@ int main() {
     char dados[100];
     fgets(dados, sizeof(dados), stdin);
 
+    printf("Query completa: %s<br>", dados);
+
     //prefixo db_ = DataBase, ou seja, se refere aos dados salvos no arquivo
-	char usrName[255], db_usrName[255], nome[255], aux[5], password[45];
+	char usrName[255], db_usrName[255], nome[255], aux[5], password[255];
 	int login = 0;
 
     // Captura os dados digitados pelo usuário
@@ -31,13 +36,16 @@ int main() {
     fseek(fp, 0, SEEK_SET);
     fread(&db, sizeof(db), 1, fp);
 
-    printf("Content-Type: text/html\n\n");
-    printf("Senha recebida: %s<br><br>", password);
+
+    printf("Senha recebida: <br><br>");
 
     int namecheck = 0;
     int passcheck = 0;
 
-	while ( !feof(fp) && !login ) {
+
+
+    // Escaneia até o fim do arquivo ou até achar o nome do usuário
+	while ( !feof(fp) && !namecheck ) {
         fread(&db, sizeof(db), 1, fp);
 
         printf(" | Nome: %s | Senha: %s <br><br>", db.usrname, db.password);
@@ -53,9 +61,6 @@ int main() {
 
         if (passcheck && namecheck)
             login = 1;
-
-//		if ( (!strcmp(db.usrname, usrName)) && (!strcpy(db.password, password)) )
-//			login = 1;
 	}
 
 	// resultados

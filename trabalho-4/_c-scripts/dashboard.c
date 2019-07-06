@@ -88,13 +88,13 @@ int main() {
 
     fseek(fpc, 0*sizeof(u), SEEK_SET);
     fread(&u, sizeof(u), 1, fpc);
-    printf(" | Nome: %s | Senha: %d | ID: %d<br><br>", u.usrname, u.pin, u.id);
+    printf(" | Nome: %s | Senha: %s | ID: %d<br><br>", u.usrname, u.password, u.id);
 
     getUsuario(1, path, &u);
-    printf(" | Nome: %s | Senha: %d | ID: %d<br><br>", u.usrname, u.pin, u.id);
+    printf(" | Nome: %s | Senha: %s | ID: %d<br><br>", u.usrname, u.password, u.id);
 
-    getUsr(fpc, 2, &u);
-    printf(" | Nome: %s | Senha: %d | ID: %d<br><br>", u.usrname, u.pin, u.id);
+//    getUsr(fpc, 2, &u);
+//    printf(" | Nome: %s | Senha: %s | ID: %d<br><br>", u.usrname, u.password, u.id);
 
 
 
@@ -113,6 +113,6 @@ int main() {
         usrID
     );
 
-    getLastestPost(5, "../trabalho-4/_registros/registroPostagens.bin");
+    getLastestPost(5, "../trabalho-4/_registros/postagens.bin");
 
 }

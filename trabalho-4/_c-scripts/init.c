@@ -38,7 +38,7 @@ int main() {
     p.ID = -1;
     strcpy(p.usrOrigem, "std_usrname");
     strcpy(p.msg, "Lorem ipsum dolor sit amet...");
-    p.deslike = p.like = 0;
+    p.deslike = p.like = -1;
 
     // Salva o usuario padrão
     fwrite(&u, sizeof(u), 1, ptrCadastro);
