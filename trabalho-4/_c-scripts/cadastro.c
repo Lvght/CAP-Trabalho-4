@@ -22,6 +22,10 @@ int main() {
 //    exit(0);
 
     /*** Extrai os dados recebidos da página HTML e monta o objeto ***/
+    // ID
+    x.id = serial("../trabalho-4/_registros/usuarios.bin");
+    printf("<p>ID: %d", x.id);
+
     // Nome de usuário
     strcpy(x.usrname, capturaQuery("usrname", dados));
     printf("<br><br>Nome de usuario: %s", x.usrname);
