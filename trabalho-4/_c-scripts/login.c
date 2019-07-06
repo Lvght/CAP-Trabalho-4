@@ -4,54 +4,15 @@
 
 #define MAX_POST 7
 
-void die(const char msg[255]) {
-	printf("\n%s\n", msg);
-	exit(1);
-}
-
-void pageRedirect(const char usrName[15], int pin, const char path[255]) {
-
-}
-
-typedef struct x
-{
-    int ID;
-    char usrOrigem[10];
-    int like;
-    int deslike;
-    char msg[180];
-} postagem;
-
-char *capturaQuery (const char varname[15], const char query_string[255])
-{
-    char *p;
-    char resposta[500];
-    char *q = resposta;
-    //necessario incluir a biblioteca <string.h>
-    p = strstr(query_string, varname);
-    p += strlen(varname) + 1;
-    while (*p != '&' && *p != '\0')
-    {
-        if (*p == '+')
-        {
-            *q = ' ';
-        }
-        else
-        {
-            *q = *p;
-        }
-        q++;
-        p++;
-    }
-    *q = '\0';
-
-    char *out = resposta;
-    return out;
-}
+#include "common.c"
 
 int main() {
-	FILE *fp = fopen("../trabalho-4/_registros/usuarios.txt", "a+");
+	FILE *fp = fopen("../trabalho-4/_registros/usuarios.bin", "rb");
 	if (fp == NULL) die("Impossivel acessar o arquivo");
+
+
+	// Cria um objeto do tipo usuário para armazenar as informações do arquivo de dados
+	usuario db;
 
 	// Pega os dados da entrada-padrão
 	// todo E se a entrada-padrão estiver vazia?
@@ -69,12 +30,19 @@ int main() {
 	pin = atoi(aux);
 
     // escaneia até achar a combinação ou até o fim do arquivo
-	while (!feof(fp) && !login) {
-		fscanf(fp, "%s %d %*d %*d %*s %[^\n]\n", db_usrName, &db_pin, nome);
+    fseek(fp, 0, SEEK_SET);
+    fread(&db, sizeof(db), 1, fp);
 
-		// strcmp retorna 0 caso ambas as strings sejam iguais
-		// compara os dados capturados com os do arquivo
-		if (!strcmp(db_usrName, usrName) && db_pin == pin)
+    printf("Content-Type: text/html\n\n");
+
+	while ( !feof(fp) && !login ) {
+        fread(&db, sizeof(db), 1, fp);
+
+        printf(" | Nome: %s | Senha: %d <br><br>", db.usrname, db.pin);
+
+//		// strcmp retorna 0 caso ambas as strings sejam iguais
+//		// compara os dados capturados com os do arquivo
+		if (!strcmp(db.usrname, usrName) && db.pin == pin)
 			login = 1;
 	}
 
@@ -90,9 +58,9 @@ int main() {
         "</head>"
 	);
 
+	// Login recusado - O usuário recebe a chance de tentar novamente
 	if (!login) {
 
-	    // LOGIN RECUSADO
 	    printf(
 	        "<h1>Não foi possível verificar seu login</h1>"
 	        "<p>Verifique seus dados e tente novamente</p>"
@@ -107,76 +75,19 @@ int main() {
 	        "<a href=\"../trabalho-4/index.html\">Voltar para a página inicial</a>"
 	    );
 
-	} else {
-	    // LOGIN APROVADO
+    // Login aprovado
+    } else {
 
-	    // Imprime um formulário oculto para preservar as informações do usuário
+        // Imprime um formulário oculto para preservar as informações do usuário
         printf(
         "<form method=\"post\" action=\"dashboard.cgi\" id=\"autosend\">"
-            "<input type=\"hidden\" value=\"%s\" name=\"usrname\">"
-            "<input type=\"hidden\" value=\"%d\" name=\"pin\">"
-            "<input type=\"hidden\" value=\"%s\" name=\"nomeComp\">"
-        "</form>"
-
-        "<script>"
-            "document.getElementById(\"autosend\").submit();"
-        "</script>",
-        usrName, pin, nome
+            "<input type=\"hidden\" value=\"%d\" name=\"usrID\">"
+        "</form>",
+        db.id
         );
-//
-//
-//
-//		printf(
-//		    "<h1>Login aprovado!</h1>"
-//		    "Bem-vindo, <strong>%s</strong>.</h1><br><br>",
-//		    nome
-//		);
-//
-//		// Imprime o formulario de postagens
-//		printf(
-//		    "<form method=\"post\" action=\"post-it.cgi\">"
-//		        "<input name=\"usrname\" type=\"hidden\" value=\"%s\">"
-//		        "<input name=\"pin\" type=\"hidden\" value=\"%d\">"
-//		        "<input name=\"msg\" placeholder=\"Digite o post aqui\">"
-//		        "<input type=\"submit\" value=\"Enviar\">"
-//		    "</form>"
-//		    "<br>"
-//		    "<br>"
-//		    "<br>",
-//
-//		    usrName, pin
-//		);
-//
-//        // Abre o arquivo de postagens
-//        FILE *posts;
-//        if ( (posts = fopen("../trabalho-4/_registros/postagens.txt", "r")) == NULL )
-//            printf(
-//                "<strong>Abertura do arquivo de postagens falhou!</strong>"
-//                "<script>window.stop()</script>"
-//            );
-//
-//
-//        /** EXIBE AS POSTAGENS **/
-//        postagem nPostagem;
-//        FILE *getposts;
-//
-//        /**** Escreve o conteudo adequado no arquivo ****/
-//        char fullQuery[522], postName[522], postMsg[522];
-//        char auxNome[522], auxMsg[522];
-//
-//        for (int i = 0; i < MAX_POST; i++) {
-//            // Pega a query completa
-//            fgets(fullQuery, sizeof(fullQuery), getposts);
-//            printf("Query completa: %s<br>", fullQuery);
-//
-//            // salva as variaveis
-//            strcpy(postName, capturaQuery("user", fullQuery));
-//            strcpy(postMsg, capturaQuery("msg", fullQuery));
-//
-//            // exibe os dados
-//            printf("<strong>Postado por</strong>: %s<br>", postName);
-//            printf("<strong>Mensagem</strong>: %s<br><hr>", postMsg);
-//        }
-//
+
+        printf("<br><strong>%d</strong>", db.id);
+
+        printf("<script>\n    document.forms[\"autosend\"].submit();\n</script>");
 	}
 }

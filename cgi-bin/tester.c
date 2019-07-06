@@ -18,7 +18,9 @@ int main() {
     // strcpy(u.fullName, "Teste");
 
     printf("\n\nNome lido: %s\n", u.fullName);
-    printf("Ultimo ID disponivel: %d", u.id);
+    printf("ID: %d\n", u.id);
+    printf("Username: %s\n", u.usrname);
+    printf("Senha: %d", u.pin);
 
 //    strcpy(u2.fullName, "Nome_teste");
 //    u2.id = serial(path);

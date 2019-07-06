@@ -28,8 +28,9 @@ int main() {
 
     // Monta os valores de sentinela de usuario
     u.id = -1;
+    u.pin = 0;
     strcpy(u.usrname, "std_usrname");
-    strcpy(u.usrname, "std_fullname");
+    strcpy(u.fullName, "std_fullname");
     u.likes = -1;
     u.deslikes = -1;
 

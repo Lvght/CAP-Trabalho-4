@@ -68,7 +68,7 @@ int main() {
 
     /*** Salva os dados no arquivo de registro ***/
     // Abertura do arquivo e exibição de erro caso a abertura falhe
-    if ( ( ptrRegistro = fopen("../trabalho-4/_registros/usuarios.bin", "rb+") ) == NULL)
+    if ( ( ptrRegistro = fopen("../trabalho-4/_registros/usuarios.bin", "ab+") ) == NULL)
     {
         printf("Não foi possível acessar o arquivo de registro! Execute o utilitario de inicializacao.\n");
         exit(1);

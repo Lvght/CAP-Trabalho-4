@@ -75,17 +75,15 @@ int main() {
 
     // Pega os dados da entrada-padrão
     // todo E se a entrada-padrão estiver vazia?
-    char dados[100], usrName[15], nomeComp[50], aux[10];
-    int pin;
+    char aux[10], dados[100];
+    int usrID;
 
     // Lê a entrada-padrão e salva a string no char dados
     fgets(dados, sizeof(dados), stdin);
 
-    // Captura os dados enviados pelo formulário da página anterior
-    strcpy(usrName, capturaQuery("usrname", dados));
-    strcpy(aux, capturaQuery("pin", dados));
-    strcpy(nomeComp, capturaQuery("nomeComp", dados));
-    pin = atoi(aux);
+    // Captura o ID do usuário, enviado pelo formulário da página anterior
+    strcpy(aux, capturaQuery("usrID", dados));
+    usrID = atoi(aux);
 
     // Imprime as informações de cabeçalho
     printf(
@@ -101,19 +99,18 @@ int main() {
     // Mensagem de saudação. Apenas para demonstrar que está funcionando.
     printf(
         "<h1>Login aprovado!</h1>"
-        "Bem-vindo, <strong>%s (%s)</strong>.</h1><br><br>",
-        nomeComp, usrName
+        "Bem-vindo, <strong>Usuario (%d)</strong>.</h1><br><br>",
+        usrID
     );
 
     // imprime um formulário para efetuar as postagens
     printf(
         "<form id='form-post' action='armazenarPostagem.cgi' method='post'>"
-            "<input type='hidden' name='login' value='%s'>"
-            "<input type='hidden' name='senha' value='%d'>"
+            "<input type='hidden' name='usrID' value='%d'>"
             "<input type='text' name='post'>"
             "<input type='submit' value='Enviar'>"
         "</form>",
-        usrName, pin
+        usrID
     );
 
     getLastestPost(5, "../trabalho-4/_registros/registroPostagens.bin");
