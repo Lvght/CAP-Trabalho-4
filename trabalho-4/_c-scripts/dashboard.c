@@ -2,32 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *capturaQuery (const char varname[15], const char query_string[255])
-{
-    char *p;
-    char resposta[500];
-    char *q = resposta;
-    //necessario incluir a biblioteca <string.h>
-    p = strstr(query_string, varname);
-    p += strlen(varname) + 1;
-    while (*p != '&' && *p != '\0')
-    {
-        if (*p == '+')
-        {
-            *q = ' ';
-        }
-        else
-        {
-            *q = *p;
-        }
-        q++;
-        p++;
-    }
-    *q = '\0';
-
-    char *out = resposta;
-    return out;
-}
+#include "common.c"
 
 void getLastestPost(int n, const char path[255])
 {
@@ -102,6 +77,31 @@ int main() {
         "Bem-vindo, <strong>Usuario (%d)</strong>.</h1><br><br>",
         usrID
     );
+
+
+
+
+
+    FILE *fpc = fopen("../trabalho-4/_registros/usuarios.bin", "rb");
+    char path[100] = "../trabalho-4/_registros/usuarios.bin";
+    usuario u;
+
+    fseek(fpc, 0*sizeof(u), SEEK_SET);
+    fread(&u, sizeof(u), 1, fpc);
+    printf(" | Nome: %s | Senha: %d | ID: %d<br><br>", u.usrname, u.pin, u.id);
+
+    getUsuario(1, path, &u);
+    printf(" | Nome: %s | Senha: %d | ID: %d<br><br>", u.usrname, u.pin, u.id);
+
+    getUsr(fpc, 2, &u);
+    printf(" | Nome: %s | Senha: %d | ID: %d<br><br>", u.usrname, u.pin, u.id);
+
+
+
+
+
+
+
 
     // imprime um formulário para efetuar as postagens
     printf(

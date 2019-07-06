@@ -70,3 +70,36 @@ int serial(const char * path) {
 
     return x.id + 1;
 }
+
+void getUsuario(int usrID, const char path[100], usuario * result) {
+    usuario aux;
+    FILE *fp;
+    fp = fopen(path, "rb");
+
+    fseek(fp, usrID*sizeof(aux), SEEK_SET);
+    fread(&aux, sizeof(aux), 1, fp);
+
+    result->id = aux.id;
+    result->likes = aux.likes;
+    result->deslikes = aux.deslikes;
+    result->pin = aux.pin;
+
+    strcpy(result->usrname, aux.usrname);
+    strcpy(result->fullName, aux.fullName);
+    strcpy(result->profilePicture, aux.profilePicture);
+}
+
+void getUsr(FILE *fp, int usrID, usuario * result) {
+    usuario aux;
+    fseek(fp, usrID*sizeof(aux), SEEK_SET);
+    fread(&aux, sizeof(aux), 1, fp);
+
+    result->id = aux.id;
+    result->likes = aux.likes;
+    result->deslikes = aux.deslikes;
+    result->pin = aux.pin;
+
+    strcpy(result->usrname, aux.usrname);
+    strcpy(result->fullName, aux.fullName);
+    strcpy(result->profilePicture, aux.profilePicture);
+}
