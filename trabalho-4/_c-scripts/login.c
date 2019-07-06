@@ -42,8 +42,6 @@ int main() {
     int namecheck = 0;
     int passcheck = 0;
 
-
-
     // Escaneia até o fim do arquivo ou até achar o nome do usuário
 	while ( !feof(fp) && !namecheck ) {
         fread(&db, sizeof(db), 1, fp);
@@ -56,7 +54,7 @@ int main() {
 		if ( !strcmp(db.usrname, usrName) )
 		    namecheck = 1;
 
-        if ( !strcmp(db.password, password) )
+        if ( namecheck && !strcmp(db.password, password) )
             passcheck = 1;
 
         if (passcheck && namecheck)
