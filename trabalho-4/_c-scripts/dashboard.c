@@ -72,10 +72,12 @@ int main() {
     );
 
     // Mensagem de saudação. Apenas para demonstrar que está funcionando.
+    usuario dat;
+    getUsuario(usrID, "../trabalho-4/_registros/usuarios.bin", &dat);
     printf(
         "<h1>Login aprovado!</h1>"
-        "Bem-vindo, <strong>Usuario (%d)</strong>.</h1><br><br>",
-        usrID
+        "Bem-vindo, <strong>%s, @%s (id: %d)</strong>.</h1><br><br>",
+        dat.fullName, dat.usrname, dat.id
     );
 
 
