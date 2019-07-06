@@ -31,3 +31,8 @@ function setLogin() {
 function unsetLogin() {
     document.cookie = "loggedin= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
 }
+
+function moveWithCookies(path) {
+    var usrname = getCookie("usrname");
+    var pass = getCookie("pin");
+}

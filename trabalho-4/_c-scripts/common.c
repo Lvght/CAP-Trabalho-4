@@ -3,9 +3,23 @@
  * Criado por: Vinicius
 */
 
-/*** Protótipos ***/
-void die(const char);
-char * capturaQuery (const char, const char);
+typedef struct {
+    int id;
+    char usrname[25];
+    char fullName[60];
+    int pin;
+    char profilePicture[255];
+    int likes;
+    int deslikes;
+} usuario;
+
+typedef struct {
+    int ID;
+    char usrOrigem[10];
+    int like;
+    int deslike;
+    char msg[180];
+} postagem;
 
 
 void die(const char msg[255]) {
@@ -40,12 +54,19 @@ char *capturaQuery (const char varname[15], const char query_string[255])
     return out;
 }
 
-typedef struct {
-    int id;
-    char usrname[25];
-    char fullName[60];
-    int pin;
-    char profilePicture[255];
-    int likes;
-    int deslikes;
-} usuario;
+int serial(const char * path) {
+    // Devolve o ID do último usuário cadastrado incrementado em 1.
+
+    usuario x;
+    FILE *fp;
+    int output;
+
+    // Abre o arquivo especificado | Volta -1 caso a abertura falhe
+    if ( (fp = fopen(path, "rb")) == NULL ) return -1;
+
+    // busca o ultimo usuario cadastrado
+    fseek(fp, -sizeof(x), SEEK_END);
+    fread(&x, sizeof(x), 1, fp);
+
+    return x.id + 1;
+}
