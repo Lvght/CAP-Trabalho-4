@@ -15,7 +15,7 @@ typedef struct {
 
 typedef struct {
     int ID;
-    char usrOrigem[10];
+    int ID_Origem;
     int like;
     int deslike;
     char msg[180];
@@ -78,6 +78,30 @@ void getUsuario(int usrID, const char path[100], usuario * result) {
 
     fseek(fp, usrID*sizeof(aux), SEEK_SET);
     fread(&aux, sizeof(aux), 1, fp);
+
+    result->id = aux.id;
+    result->likes = aux.likes;
+    result->deslikes = aux.deslikes;
+
+    strcpy(result->usrname, aux.usrname);
+    strcpy(result->fullName, aux.fullName);
+    strcpy(result->profilePicture, aux.profilePicture);
+    strcpy(result->password, aux.password);
+}
+
+void getUsuarioByUsrname(const char * usrName, const char path[100], usuario * result) {
+    usuario aux;
+    FILE *fp;
+    fp = fopen(path, "rb");
+
+    int found = 0;
+
+    while (!feof(fp) && !found) {
+        fread(&aux, sizeof(aux), 1, fp);
+
+        if ( !strcmp(usrName, aux.usrname) )
+            found = 1;
+    }
 
     result->id = aux.id;
     result->likes = aux.likes;

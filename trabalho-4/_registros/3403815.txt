@@ -1,0 +1,2 @@
+Likes=0&Deslikes=0
+inicializador

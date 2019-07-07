@@ -1,11 +1,45 @@
 
+@import url('https://fonts.googleapis.com/css?family=DM+Serif+Display|Literata|Roboto&display=swap');
+
+body {
+    font-family: 'Literata', serif;
+    background: linear-gradient(to bottom, #db9748, #be744e);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.postagem {
+    display: block;
+    margin: 15px auto;
+    width: 60%;
+    max-width: 700px;
+    padding: 15px;
+    background: linear-gradient(to right, #cff9e3, #d0dfe4);
+    border-radius: 15px;
+    box-shadow: 0 5px 5px #af894f;
+    position: relative;
+}
+
+.usrname {
+
+}
+
+.msg {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.btnContainer {
+    position: absolute;
+    bottom: 0;
+}
 
 .like {
-    padding: 10px;
     background-color: greenyellow;
+    display: inline-block;
 }
 
 .deslike {
-    padding: 10px;
     background-color: red;
+    display: inline-block;
 }

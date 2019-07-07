@@ -101,8 +101,6 @@ int main() {
         db.id
         );
 
-        printf("<br><strong>%d</strong>", db.id);
-
         printf("<script>\n    document.forms[\"autosend\"].submit();\n</script>");
 	}
 }
