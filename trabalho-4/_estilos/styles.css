@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin|DM+Serif+Display|Lobster|Roboto&display=swap');
+
+/*font-family: 'DM Serif Display', serif;*/
+/*font-family: 'Roboto', sans-serif;*/
+/*font-family: 'Lobster', cursive;*/
+/*font-family: 'Cabin', sans-serif;*/
+
+body {
+    padding: 15px 0;
+    margin: 0;
+    background: linear-gradient(to right, #f6b78c, #d79a97);
+    font-family: 'Cabin', sans-serif;
+}
+
+#wrapper {
+    width: 55%;
+    max-width: 600px;
+    border-radius: 15px;
+    background: url("glitch.png");
+    margin: auto;
+    padding: 15px;
+}
+
+#wrapper input {
+    background: linear-gradient(to right, #e47545, #e44656);
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 5px;
+    display: block;
+    width: 90%;
+    min-height: 25px;
+    margin: 15px auto;
+
+    color: whitesmoke;
+    font-family: 'Cabin', sans-serif;
+    font-size: 1.2em;
+
+    transition: .3s;
+}
+
+#wrapper input:focus {
+    outline: none;
+    background: linear-gradient(to right, #c9655a, #ac3c4c);
+}
+
+#wrapper input:hover {
+    box-shadow: 0 4px 5px rgba(0, 0, 0, .2);
+}
+
+#wrapper input::placeholder {
+    color: white;
+}
+
+.decorative-line {
+    height: 15px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(to right, #e47545, #e44656);
+}
+
+.fnt-lobster {
+    font-family: 'Lobster', serif;
+}
+
+.text-big {
+    font-size: 6em;
+    text-align: center;
+    border-bottom: 5px solid #d79a97;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+}
