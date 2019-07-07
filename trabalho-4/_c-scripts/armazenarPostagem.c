@@ -46,9 +46,11 @@ int main()
     int auxiliar = 0;
     char dados[100];
     fgets(dados, sizeof(dados), stdin);
-    char login[15], senha[15], mensagem[180];
+    char login[15], senha[15], mensagem[180], id[10];
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
+    //agora o cgi recebe tamb�m o id do usuario
+    capturarQuery("id", dados, id);
     capturarQuery("post", dados, mensagem);
     strcpy(postUser.usrOrigem, login);
     postUser.like = 0;
@@ -80,48 +82,28 @@ int main()
     strcat(caminho, stringID);
     strcat(caminho, ".txt");
     fp = fopen(caminho, "w");
-    fprintf (fp, "Likes=%d&Deslikes=%d\n%s\n", postUser.like, postUser.deslike, "inicializador");
+    //agora, caso o usuario fa�a uma postagem, seu id sera armazenado logo abaixo do numero de likes e deslikes
+    fprintf (fp, "Likes=%d&Deslikes=%d\n%s\n%s\n", postUser.like, postUser.deslike, id, postUser.usrOrigem);
     fclose(fp);
 
 
-    printf(
-            "Content-Type: text/html\n\n"
-            "<!doctype html>"
-            "<html>"
-
-            "<head>"
-            "<meta charset=\"UTF-8\">"
-            "<title>Azkaboard</title>"
-            "</head>"
-    );
-
-    // Imprime um formulário oculto para preservar as informações do usuário
-    printf(
-            "<form method=\"post\" action=\"dashboard.cgi\" id=\"autosend\">"
-            "<input type=\"hidden\" value=\"%s\" name=\"usrname\">"
-            "<input type=\"hidden\" value=\"%d\" name=\"pin\">"
-            "<input type=\"hidden\" value=\"%s\" name=\"nomeComp\">"
-            "</form>"
-
-            "<script>"
-            "document.getElementById(\"autosend\").submit();"
-            "</script>",
-            login, senha
-    );
-//    printf ("<!DOCTYPE html>");
-//    printf ("<html lang=\"pt-br\">");
-//    printf ("<head>");
-//    printf ("<title>Aba de Postagem</title>");
-//    printf ("<meta charset=\"utf-8\">");
-//    printf ("</head>");
-//    printf ("<body>");
-//    printf ("<form method=\"post\" action=\"postagem.cgi\" id=\"autosend\">");
-//    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-//    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-//    printf ("</form>");
-//    printf ("<script>");
-//    printf ("document.getElementById(\"autosend\").submit();");
-//    printf ("</script>");
-//    printf ("</body>");
-//    printf ("</html>");
+    printf("%s%c%c\n", "Content-Type:text/html;charset=UTF-8",13,10);
+    printf ("<!DOCTYPE html>");
+    printf ("<html lang=\"pt-br\">");
+    printf ("<head>");
+    printf ("<title>Aba de Postagem</title>");
+    printf ("<meta charset=\"utf-8\">");
+    printf ("</head>");
+    printf ("<body>");
+    printf ("<form method=\"post\" action=\"postagem.cgi\" id=\"autosend\">");
+    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
+    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
+    //necessario passar o id para o proximo cgi
+    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
+    printf ("</form>");
+    printf ("<script>");
+    printf ("document.getElementById(\"autosend\").submit();");
+    printf ("</script>");
+    printf ("</body>");
+    printf ("</html>");
 }
