@@ -4,7 +4,7 @@
 
 FILE *fp;
 
-int capturarQuery (char varname[15], char query_string[255], char resposta[15])
+int capturarQuery (char varname[15], char query_string[255], char resposta[65])
 {
     char *p;
     char *q = resposta;
@@ -33,7 +33,7 @@ int capturarQuery (char varname[15], char query_string[255], char resposta[15])
 typedef struct x
 {
     int ID;
-    char usrOrigem[10];
+    char usrOrigem[25];
     int like;
     int deslike;
     char msg[180];
@@ -44,12 +44,12 @@ int main()
     int auxiliarID;
     postagem postUser;
     int auxiliar = 0;
-    char dados[100];
+    char dados[255];
     fgets(dados, sizeof(dados), stdin);
-    char login[15], senha[15], mensagem[180], id[10];
+    char login[25], senha[45], mensagem[180], id[10];
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
-    //agora o cgi recebe tambï¿½m o id do usuario
+    //agora o cgi recebe também o id do usuario
     capturarQuery("id", dados, id);
     capturarQuery("post", dados, mensagem);
     strcpy(postUser.usrOrigem, login);
@@ -82,7 +82,7 @@ int main()
     strcat(caminho, stringID);
     strcat(caminho, ".txt");
     fp = fopen(caminho, "w");
-    //agora, caso o usuario faï¿½a uma postagem, seu id sera armazenado logo abaixo do numero de likes e deslikes
+    //agora, caso o usuario faça uma postagem, seu id sera armazenado logo abaixo do numero de likes e deslikes
     fprintf (fp, "Likes=%d&Deslikes=%d\n%s\n%s\n", postUser.like, postUser.deslike, id, postUser.usrOrigem);
     fclose(fp);
 

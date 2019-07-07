@@ -4,7 +4,7 @@
 
 FILE *fp;
 
-int capturarQuery (char varname[15], char query_string[255], char resposta[15])
+int capturarQuery (char varname[15], char query_string[255], char resposta[65])
 {
     char *p;
     char *q = resposta;
@@ -30,7 +30,7 @@ int capturarQuery (char varname[15], char query_string[255], char resposta[15])
     return 1;
 }
 
-void pegarDados (char interacao[10], char id[10], char usuario[10], char dados[50])
+void pegarDados (char interacao[10], char id[10], char usuario[25], char dados[255])
 {
     char *p;
     p = dados;
@@ -64,16 +64,15 @@ void pegarDados (char interacao[10], char id[10], char usuario[10], char dados[5
     usuario[i+1] = '\0';
 }
 
-//essa funï¿½ï¿½o recebe o diretorio do arquivo de registro dos usuarios, o id de quem fez a postagem e a interaï¿½ï¿½o (like/deslike)
+//essa função recebe o diretorio do arquivo de registro dos usuarios, o id de quem fez a postagem e a interação (like/deslike)
 void alterarPontuacao (char path[255], int IDPostUser, char interacao[10])
 {
     FILE *fp;
-    typedef struct
-    {
+    typedef struct {
         int id;
         char usrname[25];
         char fullName[60];
-        int pin;
+        char password[45];
         char profilePicture[255];
         int likes;
         int deslikes;
@@ -94,7 +93,7 @@ void alterarPontuacao (char path[255], int IDPostUser, char interacao[10])
 
 int main()
 {
-    char login[15], senha[15], idPostagem[10], usuario[10], interacao[10], buffer[100], likes[10], deslikes[10], dados[100], IDPostUser[10], id[10];
+    char login[25], senha[45], idPostagem[10], usuario[25], interacao[10], buffer[100], likes[10], deslikes[10], dados[255], IDPostUser[10], id[10];
     fgets(dados, sizeof(dados), stdin);
     pegarDados(interacao, idPostagem, usuario, dados);
     capturarQuery("login", dados, login);
@@ -111,22 +110,22 @@ int main()
     fgets(buffer, 100, fp);
     capturarQuery("Likes", buffer, likes);
     capturarQuery("Deslikes", buffer, deslikes);
-    //armazena o id de quem postou o arquivo na variavel para ser usado na funï¿½ï¿½o logo abaixo.
+    //armazena o id de quem postou o arquivo na variavel para ser usado na função logo abaixo.
     fgets(IDPostUser, 100, fp);
     while (!feof(fp) && strcmp(buffer, usuario) != 0)
         fgets(buffer, 100, fp);
     if (strcmp(buffer, usuario) == 0);
     else
     {
-        fseek(fp, 0, SEEK_END);
-        fprintf (fp, "%s", usuario);
-        rewind(fp);
-        if (!(strcmp(interacao, "like")))
-            fprintf (fp, "Likes=%d&Deslikes=%d", atoi(likes) + 1, atoi(deslikes));
-        else
-            fprintf (fp, "Likes=%d&Deslikes=%d", atoi(likes), atoi(deslikes) + 1);
-        //caso o like seja contabilizado, serï¿½ chamada a funï¿½ï¿½o que altera a pontuaï¿½ï¿½o
-        alterarPontuacao("../trabalho-4/_registros/usuarios.bin", atoi(IDPostUser), interacao);
+            fseek(fp, 0, SEEK_END);
+            fprintf (fp, "%s", usuario);
+            rewind(fp);
+            if (!(strcmp(interacao, "like")))
+                fprintf (fp, "Likes=%d&Deslikes=%d", atoi(likes) + 1, atoi(deslikes));
+            else
+                fprintf (fp, "Likes=%d&Deslikes=%d", atoi(likes), atoi(deslikes) + 1);
+            //caso o like seja contabilizado, será chamada a função que altera a pontuação
+            alterarPontuacao("../trabalho-4/_registros/usuarios.bin", atoi(IDPostUser), interacao);
 
     }
     fclose(fp);

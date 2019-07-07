@@ -23,6 +23,8 @@ int main() {
     /*** Extrai os dados recebidos da página HTML e monta o objeto ***/
     // ID
     x.id = serial("../trabalho-4/_registros/usuarios.bin");
+    if (x.id == -1)
+        x.id++;
     printf("<p>ID: %d", x.id);
 
     // Nome de usuário
@@ -64,7 +66,7 @@ int main() {
 
     /*** Salva os dados no arquivo de registro ***/
     // Abertura do arquivo e exibição de erro caso a abertura falhe
-    if ( ( ptrRegistro = fopen("../trabalho-4/_registros/usuarios.bin", "ab+") ) == NULL)
+    if ( ( ptrRegistro = fopen("../trabalho-4/_registros/usuarios.bin", "a+b") ) == NULL)
     {
         printf("Não foi possível acessar o arquivo de registro! Execute o utilitario de inicializacao.\n");
         exit(1);
@@ -72,6 +74,7 @@ int main() {
 
     // salvamento
     int check = 0;
+    fseek(ptrRegistro, (x.id)*sizeof(x), SEEK_SET);
     check = fwrite(&x, sizeof(x), 1, ptrRegistro);
 
     if (!check) {
@@ -81,6 +84,13 @@ int main() {
 
     /*** Exibição do resultado ***/
 
-    printf("<p>Voce foi cadastrado com sucesso</p>\n<a href='../../cgi-bin/dashboard.cgi'>Ir para a dashboard ></a>");
+    printf ("<p>Voce foi cadastrado com sucesso</p>");
+    printf ("<form action=\"postagem.cgi\" method=\"post\">");
+    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", x.usrname);
+    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", x.password);
+    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%d />", x.id);
+    printf ("<input type=\"submit\" value=\"Ir para a dashboad\"/>");
+    printf ("</form>");
+    printf ("</html>");
 
 }

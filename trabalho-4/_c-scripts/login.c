@@ -95,10 +95,12 @@ int main() {
 
         // Imprime um formulário oculto para preservar as informações do usuário
         printf(
-        "<form method=\"post\" action=\"dashboard.cgi\" id=\"autosend\">"
-            "<input type=\"hidden\" value=\"%d\" name=\"usrID\">"
+        "<form method=\"post\" action=\"postagem.cgi\" id=\"autosend\">"
+            "<input type=\"hidden\" value=\"%s\" name=\"login\">"
+            "<input type=\"hidden\" value=\"%s\" name=\"senha\">"
+            "<input type=\"hidden\" value=\"%d\" name=\"id\">"
         "</form>",
-        db.id
+        db.usrname, db.password, db.id
         );
 
         printf("<script>\n    document.forms[\"autosend\"].submit();\n</script>");

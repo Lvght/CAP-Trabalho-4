@@ -162,12 +162,13 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
 
 int main()
 {
-    char login[25], senha[45], dados[255], id [10];
+    char login[25], senha[45], dados[255], id [10], qtsPostagens[10];
     fgets(dados, sizeof(dados), stdin);
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
     //Agora o programa recebe também o id único do usuário. Ele é necessário para ser armazenado no junto do arquivo (da postagem) quando o usuario fizer alguma postagem
     capturarQuery("id", dados, id);
+    capturarQuery("carregar", dados, qtsPostagens);
 
     printf("%s%c%c\n", "Content-Type:text/html;charset=UTF-8",13,10);
     printf ("<!DOCTYPE html>");
@@ -200,7 +201,7 @@ int main()
     printf ("</form>");
     printf ("<br>");
     //O id tem que ser passado como parametro para essa funçao para que ele seja passado para o proximo cgi.
-    getLastestPost(10, "../trabalho-4/_registros/registroPostagens.bin", login, senha, id);
+    getLastestPost(atoi(qtsPostagens), "../trabalho-4/_registros/registroPostagens.bin", login, senha, id);
     printf ("<form action=\"carregarMais.cgi\" method=\"post\">");
     printf ("<input type=\"submit\" value=\"Carregar mais\"/>");
     printf ("</div>");
@@ -208,7 +209,7 @@ int main()
     printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
     //agora o id fica como imput escondido
     printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-    printf ("<input type=\"hidden\" id=\"quantidade\" name=\"carregar\" value=\"20\" />");
+    printf ("<input type=\"hidden\" id=\"quantidade\" name=\"carregar\" value=%d />", atoi(qtsPostagens) + 10);
     printf ("</form>");
     printf ("</body>");
     printf ("</html>");
