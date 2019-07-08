@@ -8,7 +8,7 @@
 body {
     padding: 0;
     margin: 0;
-    background: linear-gradient(to right, #f6b78c, #d79a97);
+    background: linear-gradient(to right, #ede1e1, #f2e7e6);
     font-family: 'Cabin', sans-serif;
 }
 
@@ -66,6 +66,7 @@ body {
 .text-big {
     font-size: 6em;
     text-align: center;
-    border-bottom: 5px solid #d79a97;
+    border-bottom: 5px solid #e44656;
+    color: #f2f2f2;
     text-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }

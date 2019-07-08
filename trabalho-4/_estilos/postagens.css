@@ -22,12 +22,12 @@ header {
 }
 
 .gradiente-3 {
-    background: linear-gradient(to right, #e44656, #ac3c4c);
+    background: linear-gradient(to right, #e44656, #95afff);
 }
 
 .post-container {
     display: block;
-    margin: auto auto 25px auto;
+    margin: auto auto 50px auto;
     width: 60%;
     max-width: 700px;
     background-color: #fffcf2;
@@ -36,8 +36,8 @@ header {
     box-sizing: border-box;
     border-radius: 10px;
 
-    border-top: 5px solid #ac3c4c;
-    border-bottom: 5px solid #ac3c4c;
+    border-top: 5px solid #e44656;
+    border-bottom: 5px solid #e44656;
 }
 
 .btn-sair {
@@ -63,10 +63,12 @@ header {
 }
 
 .usr-info {
-    background-color: #ffccce;
+    background-color: #e6e6e6;
     text-align: center;
     padding: 15px;
     box-shadow: 0 3px 5px rgba(0,0,0,.2);
+    border-bottom: 5px solid #e44656;
+    margin-bottom: 25px;
 }
 
 .usr-info span {
@@ -87,7 +89,7 @@ header {
 }
 
 .usr-info .usrNickName:hover {
-    color: #ff6c9c;
+    color: #e44656;
     text-shadow: 0 3px 5px rgba(0,0,0,.2);
 }
 
@@ -101,4 +103,7 @@ header {
     margin-top: 25px;
     width: 45%;
     max-width: 450px;
+    box-shadow: 0 3px 5px rgba(0,0,0,.2);
+    border: 2px solid white;
+    border-radius: 10px;
 }
