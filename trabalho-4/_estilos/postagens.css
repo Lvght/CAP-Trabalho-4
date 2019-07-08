@@ -96,3 +96,9 @@ header {
     width: 60%;
     max-width: 700px;
 }
+
+.img-pontuacao {
+    margin-top: 25px;
+    width: 45%;
+    max-width: 450px;
+}

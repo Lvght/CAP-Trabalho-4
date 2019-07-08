@@ -237,11 +237,11 @@ int main()
 
     // Saudação
     printf("<div class='usr-info'>\n"
+           "    <img src='../trabalho-4/_img/%destrelas.png' class='img-pontuacao'>\n"
            "    <span class='usrFullName'>%s</span>\n"
            "    <span class='usrNickName' onclick='document.forms[\"checkProfile\"].submit()'>@%s</span>\n"
-           "    <img src='../trabalho-4/_img/%destrelas.png'>\n"
            "</div>",
-           db.fullName, db.usrname, getPoints(db.id, "../trabalho-4/_registros/usuarios.bin") );
+           getPoints(db.id, "../trabalho-4/_registros/usuarios.bin"), db.fullName, db.usrname );
 
     //endregion
 
