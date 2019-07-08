@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin|DM+Serif+Display|Lobster|Roboto&display=swap');
+
+body {
+    background: linear-gradient(to bottom, #ffddd9, #ccddff);
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    top: 0;
+}
+
+.linha-decorativa {
+    /*position: absolute;*/
+    top: 0;
+    height: 50px;
+}
+
+.btn {
+    padding: 10px;
+    border: 2px solid black;
+}
+
+.gradiente-3 {
+    background: linear-gradient(to right, #e44656, #ac3c4c);
+}
+
+.post-container {
+    display: block;
+    margin: auto auto 25px auto;
+    width: 60%;
+    max-width: 700px;
+    background-color: #fffcf2;
+    box-shadow: 0 5px 5px rgba(0,0,0,.1);
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    border-top: 5px solid #ac3c4c;
+    border-bottom: 5px solid #ac3c4c;
+}
+
+.btn-sair {
+    position: absolute;
+    right: 30px;
+    top: 25px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    color: transparent;
+    border: 1px solid white;
+    text-decoration: none;
+
+    background: linear-gradient(to top, #6b7fe4, #ff6c9c);
+
+    transition: .3s;
+}
+
+.btn-sair:hover {
+    background: #e44656;
+    color: black;
+    box-shadow: 0 3px 5px rgba(0,0,0,.5);
+}
+
+.usr-info {
+    background-color: #ffccce;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 3px 5px rgba(0,0,0,.2);
+}
+
+.usr-info span {
+    display: block;
+    margin-top: 10px;
+}
+
+.usr-info .usrFullName {
+    margin-top: 20px; /* Overwrites std */
+    font-size: 3em;
+    font-family: 'Lobster', serif;
+}
+
+.usr-info .usrNickName {
+    font-size: 2em;
+    font-family: 'Roboto', serif;
+    cursor: pointer;
+}
+
+.usr-info .usrNickName:hover {
+    color: #ff6c9c;
+    text-shadow: 0 3px 5px rgba(0,0,0,.2);
+}
+
+.top-container {
+    margin: auto;
+    width: 60%;
+    max-width: 700px;
+}

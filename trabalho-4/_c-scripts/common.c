@@ -15,7 +15,7 @@ typedef struct {
 
 typedef struct {
     int ID;
-    char usrOrigem[10];
+    char usrOrigem[25];
     int like;
     int deslike;
     char msg[180];

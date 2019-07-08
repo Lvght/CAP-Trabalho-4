@@ -5,31 +5,27 @@
     <meta charset="UTF-8">
     <title>Azkaboard</title>
     <script src="_js-scripts/cookies.js"></script>
-    <link href="_estilos/reset.css" rel="stylesheet">
-    <link href="_estilos/styles.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="decorative-line"></div>
 
-    <a href="cadastro.html">Cadastro ></a>
-    <br>
-    <br>
+<button onclick="isLoggedIn()">Verifica login</button>
+<button onclick="setLogin()">Faz o login</button>
+<button onclick="destroyCookie('loggedin')">Faz o logout</button>
 
-    <div id="wrapper">
-        <form method="post" action="../cgi-bin/login.cgi">
-            <h1 class="fnt-lobster text-big">Azkaboard</h1>
-            <input name="usrname" id="usrname" placeholder="Nome de usuário" autocomplete="off">
-            <input name="password" id="password" type="password" placeholder="Senha" autocomplete="off">
+<br>
+<br>
+<a href="cadastro.html">Cadastro ></a>
+<br>
+<br>
 
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
+<form method="post" action="../cgi-bin/login.cgi">
+    <h1>Login</h1>
+    <input name="usrname" placeholder="usr name" autocomplete="off">
+    <input name="password" placeholder="pin" autocomplete="off">
 
-<!--    <footer>-->
-<!--        <span>Trabalho 4 - Construção de Algoritmos e Programação | Universidade Federal de São Carlos</span>-->
-<!--    </footer>-->
-
+    <input type="submit" value="Enviar">
+</form>
 </body>
 
 </html>

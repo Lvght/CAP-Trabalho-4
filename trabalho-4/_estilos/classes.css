@@ -9,3 +9,14 @@
     padding: 10px;
     background-color: red;
 }
+
+.profileImg {
+    max-width: 100px;
+}
+
+.input-txt {
+    width: 75%;
+    margin: auto;
+    height: 25px;
+    padding: 5px 10px;
+}

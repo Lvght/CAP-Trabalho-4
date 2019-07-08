@@ -24,19 +24,20 @@ int main() {
 
     // Reseta ou cria os arquivos
     FILE *ptrCadastro = fopen("../trabalho-4/_registros/usuarios.bin", "wb");
-    FILE *ptrPostagem = fopen("../trabalho-4/_registros/postagens.bin", "wb");
+    FILE *ptrPostagem = fopen("../trabalho-4/_registros/registroPostagens.bin", "wb");
 
     // Monta os valores de sentinela de usuario
     u.id = 0;
-    strcpy(u.usrname, "std_usrname");
+    strcpy(u.usrname, "-1");
     strcpy(u.password, "std_password");
     strcpy(u.fullName, "std_fullname");
     u.likes = -1;
     u.deslikes = -1;
 
     // Monta os valores de sentinela de postagem
-    p.ID = -1;
-    strcpy(p.usrOrigem, "std_usrname");
+    p.ID = 0;
+    strcpy(p.usrOrigem, "-1");
+    printf("Usr: %s", p.usrOrigem);
     strcpy(p.msg, "Lorem ipsum dolor sit amet...");
     p.deslike = p.like = -1;
 
