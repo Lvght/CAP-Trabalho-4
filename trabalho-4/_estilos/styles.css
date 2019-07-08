@@ -12,6 +12,34 @@ body {
     font-family: 'Cabin', sans-serif;
 }
 
+input[type=text] {
+    background: linear-gradient(to left, #6b7fe4, #ff6c9c);
+    border: 2px solid white;
+    transition: .2s;
+    color: #e6e6e6;
+    font-family: 'Cabin', sans-serif;
+    font-size: 1.2em;
+}
+
+input[type=text]:focus {
+    background: linear-gradient(to left, #5362ad, #cc5a80);
+    outline: none;
+    box-shadow: 0 3px 5px rgba(0,0,0,.3);
+}
+
+input:hover {
+    box-shadow: 0 3px 5px rgba(0,0,0,.3);
+}
+
+input[type=submit] {
+    box-sizing: border-box;
+    background-color: #e3cccf;
+    font-family: 'Lobster', serif;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 #wrapper {
     width: 55%;
     max-width: 600px;

@@ -135,17 +135,19 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
 
             // Botão para o perfil do usuário
             printf("<form action=\"entrarPerfil.cgi\" method=\"post\">\n"
-                  "    <strong>Usuario</strong>\n"
                   "    <input type=\"hidden\" name=\"usuario\" value = %s > <!-- Usrname -->\n"
                   "    <input type=\"hidden\" id=\"login\" name=\"login\" value = %s /> <!-- Here -->\n"
                   "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value = %s />\n"
-                  "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
-                  "    <input type=\"submit\" value = %s />\n"
+                  "    <input type=\"hidden\" id=\"id\" name=\"id\" class='post-btn-usrname' value=%s />\n"
+                  "    <input type=\"submit\" value = @%s />\n"
                   "</form>",
                   nPostagem.usrOrigem, login, senha, id, nPostagem.usrOrigem );
 
             // Mensagem do usuário
-            printf("%s", nPostagem.msg);
+            printf("<span class='post-usrmsg'>%s</span>", nPostagem.msg);
+
+            // Abre a div btn-container
+            printf("<div class='btn-container'>");
 
             // Botão de like
             printf("<form action=\"DLike.cgi\" method=\"post\">\n"
@@ -153,10 +155,9 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
                    "    <input type=\"hidden\" name=\"login\" value=%s />\n"
                    "    <input type=\"hidden\" name=\"senha\" value=%s />\n"
                    "    <input type=\"hidden\" name=\"id\" value=%s />\n"
-                   "    <input type=\"submit\" value=%s />\n"
-                   "    (%d)\n"
+                   "    <input type=\"submit\" value= \"%d %s%s\" />\n"
                    "</form>\n",
-                    auxiliarLike, login, senha, id, "Like ", nPostagem.like);
+                    auxiliarLike, login, senha, id, nPostagem.like, "Like", nPostagem.like > 2 ? "s" : "" );
 
             // Botão de deslike
             printf("<form action=\"DLike.cgi\" method=\"post\">\n"
@@ -169,8 +170,12 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
                    "</form>",
                    auxiliarDeslike, login, senha, id, "Deslike ", nPostagem.deslike );
 
+            // Fecha a div btn-container
+            printf("</div>");
+
             // Fecha a div post-container
             printf("</div>");
+
             //endregion
 
             i++;

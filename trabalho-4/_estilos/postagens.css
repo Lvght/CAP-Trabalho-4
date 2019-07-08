@@ -40,6 +40,14 @@ header {
     border-bottom: 5px solid #e44656;
 }
 
+.post-container form {
+    display: inline-block;
+}
+
+.btn-container {
+    display: block;
+}
+
 .btn-sair {
     position: absolute;
     right: 30px;
@@ -58,8 +66,8 @@ header {
 
 .btn-sair:hover {
     background: #e44656;
-    color: black;
     box-shadow: 0 3px 5px rgba(0,0,0,.5);
+    color: transparent;
 }
 
 .usr-info {
