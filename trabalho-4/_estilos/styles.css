@@ -37,6 +37,7 @@ input[type=submit] {
     border: 2px solid white;
     border-radius: 5px;
     cursor: pointer;
+    transition: .2s;
 }
 
 input[type=submit]:not(.post-btn-like, .post-btn-deslike) {

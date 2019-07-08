@@ -158,14 +158,22 @@ int main()
 {
     usuario entrar;
     char dados[255], login[25], senha[45], id[15], usr[25];
+
+    // Lê a entrada-padrão
     fgets(dados, sizeof(dados), stdin);
+
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
     capturarQuery("id", dados, id);
     capturarQuery("usuario", dados, usr);
-    //mudar diretorio caso o nome do registro seja outro
+
+    usuario db;
+    getUsuarioByUsrname(login, "../trabalho-4/_registros/usuarios.bin", &db);
+
+    // mudar diretorio caso o nome do registro seja outro
     fp = fopen("../trabalho-4/_registros/usuarios.bin", "rb");
     fread (&entrar, sizeof(entrar), 1, fp);
+
     //faz uma busca para verificar se o usuario pesquisado esta registrado no arquivo
     int i = 0;
     while (!feof(fp) && strcmp(entrar.usrname, usr) != 0)
@@ -174,6 +182,7 @@ int main()
         fread (&entrar, sizeof(entrar), 1, fp);
         i++;
     }
+
     fclose (fp);
 
     // caso o usuario seja encontrado, vai ser exibida uma pagina com as postagens

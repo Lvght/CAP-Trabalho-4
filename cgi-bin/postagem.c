@@ -20,18 +20,6 @@ void perfil (char login[25], char senha[45], char id[15])
            "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
            "</form>",
            login, senha, id );
-
-//    printf ("<form action=\"entrarPerfil.cgi\" method=\"post\">");
-//    printf ("<div id=\"subtitle\"> <h2> Procure por um usuario </h2> </div>");
-//    printf ("<div id=\"msg\">");
-//    printf ("<input type=\"text\" id=\"usuario\" class='input-txt' name=\"usuario\"/>");
-//    printf ("<input type=\"submit\" class='btn' id='btn-busca' value=\"Enviar\"/>");
-//    printf ("</div>");
-//    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-//    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-//    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-//    printf ("</form>");
-//    printf ("<br>");
 }
 
 //Essa função imprime a pontuação do usuario
@@ -232,9 +220,6 @@ int main()
 
 
     //region Cabeçalho do site
-
-    // linha decorativa
-//    printf("<div class='linha-decorativa gradiente-2'></div>");
 
     // Header
     printf("<header class='gradiente-3'>\n"
