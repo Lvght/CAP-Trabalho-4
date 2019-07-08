@@ -16,7 +16,7 @@ body {
     width: 55%;
     max-width: 600px;
     border-radius: 15px;
-    background: url("glitch.png");
+    background: url("../_img/glitch.png");
     margin: auto;
     padding: 15px;
 }
