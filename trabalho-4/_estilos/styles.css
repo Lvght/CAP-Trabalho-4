@@ -33,11 +33,14 @@ input:hover {
 
 input[type=submit] {
     box-sizing: border-box;
-    background-color: #e3cccf;
     font-family: 'Lobster', serif;
     border: 2px solid white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+input[type=submit]:not(.post-btn-like, .post-btn-deslike) {
+    background-color: #e3cccf;
 }
 
 #wrapper {

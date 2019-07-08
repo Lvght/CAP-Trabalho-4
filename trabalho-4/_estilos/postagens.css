@@ -115,3 +115,58 @@ header {
     border: 2px solid white;
     border-radius: 10px;
 }
+
+.post-usrmsg {
+    display: block;
+    margin: 25px auto 25px auto;
+    font-size: 3em;
+    text-align: center;
+}
+
+.post-btn-usrname {
+    font-size: 1.2em;
+}
+
+.btn-container {
+    margin-top: 50px;
+}
+
+.btn-container:hover .post-btn-like, .btn-container:hover .post-btn-deslike {
+    color: white;
+    text-shadow: 0 3px 5px rgba(0,0,0,.2);
+}
+
+.post-btn-like {
+    background-color: #4ee39a;
+}
+
+.post-btn-deslike {
+    background-color: #e3574f;
+}
+
+.post-btn-like, .post-btn-deslike {
+    width: 100px;
+    height: 50px;
+    transition: .2s;
+    color: transparent;
+}
+
+.subtop-container {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.subtop-container h2 {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    font-family: 'Lobster', serif;
+    font-size: 1.4em;
+}
+
+#btn-carregar-mais {
+    display: block;
+    margin: auto auto 50px auto;
+    width: 55%;
+    height: 50px;
+    font-size: 1.3em;
+}

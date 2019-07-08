@@ -8,17 +8,30 @@
 
 void perfil (char login[25], char senha[45], char id[15])
 {
-    printf ("<form action=\"entrarPerfil.cgi\" method=\"post\">");
-    printf ("<div id=\"subtitle\"> <h2> Procure por um usuario </h2> </div>");
-    printf ("<div id=\"msg\">");
-    printf ("<input type=\"text\" id=\"usuario\" class='input-txt' name=\"usuario\"/>");
-    printf ("<input type=\"submit\" class='btn' id='btn-busca' value=\"Enviar\"/>");
-    printf ("</div>");
-    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-    printf ("</form>");
-    printf ("<br>");
+    printf("<form action=\"entrarPerfil.cgi\" method=\"post\">\n"
+           "    <div id=\"subtitle\"> \n"
+           "        <h2 class='txt-indicator'> Procure por um usuario </h2> \n"
+           "    </div>\n    <div id=\"msg\">\n"
+           "        <input type=\"text\" id=\"usuario\" class='input-txt' name=\"usuario\"/>\n"
+           "        <input type=\"submit\" class='btn' id='btn-busca' value=\"Enviar\"/>\n"
+           "    </div>\n"
+           "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
+           "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />\n"
+           "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
+           "</form>",
+           login, senha, id );
+
+//    printf ("<form action=\"entrarPerfil.cgi\" method=\"post\">");
+//    printf ("<div id=\"subtitle\"> <h2> Procure por um usuario </h2> </div>");
+//    printf ("<div id=\"msg\">");
+//    printf ("<input type=\"text\" id=\"usuario\" class='input-txt' name=\"usuario\"/>");
+//    printf ("<input type=\"submit\" class='btn' id='btn-busca' value=\"Enviar\"/>");
+//    printf ("</div>");
+//    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
+//    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
+//    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
+//    printf ("</form>");
+//    printf ("<br>");
 }
 
 //Essa função imprime a pontuação do usuario
@@ -138,8 +151,8 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
                   "    <input type=\"hidden\" name=\"usuario\" value = %s > <!-- Usrname -->\n"
                   "    <input type=\"hidden\" id=\"login\" name=\"login\" value = %s /> <!-- Here -->\n"
                   "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value = %s />\n"
-                  "    <input type=\"hidden\" id=\"id\" name=\"id\" class='post-btn-usrname' value=%s />\n"
-                  "    <input type=\"submit\" value = @%s />\n"
+                  "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
+                  "    <input type=\"submit\" class='post-btn-usrname' value = @%s />\n"
                   "</form>",
                   nPostagem.usrOrigem, login, senha, id, nPostagem.usrOrigem );
 
@@ -155,7 +168,7 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
                    "    <input type=\"hidden\" name=\"login\" value=%s />\n"
                    "    <input type=\"hidden\" name=\"senha\" value=%s />\n"
                    "    <input type=\"hidden\" name=\"id\" value=%s />\n"
-                   "    <input type=\"submit\" value= \"%d %s%s\" />\n"
+                   "    <input type=\"submit\" value= \"%d %s%s\" class='post-btn-like'/>\n"
                    "</form>\n",
                     auxiliarLike, login, senha, id, nPostagem.like, "Like", nPostagem.like > 2 ? "s" : "" );
 
@@ -165,10 +178,9 @@ int getLastestPost(int n, const char path[255], char login[25], char senha[45], 
                    "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
                    "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />\n"
                    "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
-                   "    <input type=\"submit\" value=%s />\n"
-                   "    (%d)\n"
-                   "</form>",
-                   auxiliarDeslike, login, senha, id, "Deslike ", nPostagem.deslike );
+                   "    <input type=\"submit\" value=\"%d %s%s\" class='post-btn-deslike' />\n"
+                   "</form>" ,
+                   auxiliarDeslike, login, senha, id, nPostagem.deslike, "Deslike", nPostagem.deslike > 2 ? "s" : "" );
 
             // Fecha a div btn-container
             printf("</div>");
@@ -250,6 +262,9 @@ int main()
 
     //endregion
 
+    // Subtopo
+    printf("<div class='subtop-container'>");
+
     // Formulário de busca de perfil
     printf("<div class='top-container' id='search-form-container'>");
     perfil(db.usrname, db.password, id);
@@ -259,7 +274,7 @@ int main()
     printf("<div class='top-container' id='post-form-container'>");
     printf("<form action='armazenarPostagem.cgi' method='post'>\n"
            "    <div id=\"subtitle\">\n"
-           "        <h2> Digite aqui a sua mensagem </h2> \n"
+           "        <h2 class='txt-indicator'> Digite aqui a sua mensagem </h2> \n"
            "    </div>\n"
            "    <div id=\"msg\">\n"
            "        <input type='text' id=\"postagem\" name=\"post\" class='input-txt'/>\n"
@@ -273,6 +288,9 @@ int main()
            login, login, senha, id );
     printf("</div>");
 
+    // Encerra o subtop-container
+    printf("</div>");
+
     // Exibe 'n = 10' postagens na tela
     getLastestPost(STD_POST_AMNT, "../trabalho-4/_registros/registroPostagens.bin", db.usrname, db.password, id);
 
@@ -280,7 +298,7 @@ int main()
 
     // Botão "Carregar mais"
     printf("<form action=\"carregarMais.cgi\" method=\"post\">\n"
-           "    <input type=\"submit\" value=\"Carregar mais\" >\n"
+           "    <input type=\"submit\" value=\"Carregar mais\" id='btn-carregar-mais'>\n"
            "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
            "    <input type=\"hidden\" id=\"quantidade\" name=\"carregar\" value=\"20\" />\n"
            "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />\n"
