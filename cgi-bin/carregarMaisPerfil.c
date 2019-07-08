@@ -2,17 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-FILE *fp;
+#include "scripts.c"
 
-    typedef struct {
-        int id;
-        char usrname[25];
-        char fullName[60];
-        char password[45];
-        char profilePicture[255];
-        int likes;
-        int deslikes;
-    } usuario;
+FILE *fp;
 
 void capturarQuery (char varname[15], char query_string[255], char resposta[60])
 {
@@ -38,9 +30,9 @@ void capturarQuery (char varname[15], char query_string[255], char resposta[60])
 }
 
 //Modifiquei essa função. Agora ela recebe o usuario que foi perquisado como parâmetro.
-int getLastestPostModificado(int n, const char path[255], char login[25], char senha[45], char id[10], char usuario[25])
+int getLastestPostModificado(int n, const char path[255], char login[25], char senha[45], char id[10], char usr[25])
 {
-   typedef struct x
+    typedef struct x
     {
         int ID;
         char usrOrigem[25];
@@ -71,7 +63,7 @@ int getLastestPostModificado(int n, const char path[255], char login[25], char s
             fseek(fp, -j*(sizeof(nPostagem)), SEEK_END);
             fread(&nPostagem, sizeof(nPostagem), 1, fp);
             //Houve modificação aqui também. Se a postagem lida tiver sido feita pelo usuario em questão, ela sera impressa, senão não.
-            if (strcmp(nPostagem.usrOrigem, usuario) == 0 || strcmp(nPostagem.usrOrigem, "-1") == 0)
+            if (strcmp(nPostagem.usrOrigem, usr) == 0 || strcmp(nPostagem.usrOrigem, "-1") == 0)
             {
                 fclose(fp);
                 strcpy(caminho, "../trabalho-4/_registros/");
@@ -89,41 +81,57 @@ int getLastestPostModificado(int n, const char path[255], char login[25], char s
                 nPostagem.deslike = atoi(deslike);
                 fp = fopen (path, "rb");
 
-                // Caso chegue no inicio do arquivo
-                // Isso só pode acontecer com o
+                // Condição de início de arquivo
+                // Só pode possivelmente ocorrer com o primeiro usuário cadastrado
                 if ( nPostagem.ID == 1 )
                     return 0;
-                else
-                {
-                    itoa (nPostagem.ID, auxiliarLike, 10);
-                    strcat(auxiliarLike, ".");
-                    strcat(auxiliarLike, login);
-                    itoa (nPostagem.ID, auxiliarDeslike, 10);
-                    strcat(auxiliarDeslike, ".");
-                    strcat(auxiliarDeslike, login);
-                    printf ("<strong>Usuario</strong>: %s<br>", nPostagem.usrOrigem);
-                    printf ("%s<br>", nPostagem.msg);
-                    printf ("<form action=\"DLike.cgi\" method=\"post\">");
-                    printf ("<input type=\"hidden\" id=\"like\" name=\"like\" value=%s />", auxiliarLike);
-                    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-                    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-                    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-                    printf ("<input type=\"submit\" value=%s />", "Like ");
-                    printf ("(%d)", nPostagem.like);
-                    printf ("</div>");
-                    printf ("</form>");
-                    printf ("<form action=\"DLike.cgi\" method=\"post\">");
-                    printf ("<input type=\"hidden\" id=\"deslike\" name=\"deslike\" value=%s />", auxiliarDeslike);
-                    printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-                    printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-                    printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-                    printf ("<input type=\"submit\" value=%s />", "Deslike ");
-                    printf ("(%d)", nPostagem.deslike);
-                    printf ("</div>");
-                    printf ("</form>");
-                    printf ("<br><br>");
-                    printf ("</html>");
-                }
+
+
+                itoa (nPostagem.ID, auxiliarLike, 10);
+                strcat(auxiliarLike, ".");
+                strcat(auxiliarLike, login);
+                itoa (nPostagem.ID, auxiliarDeslike, 10);
+                strcat(auxiliarDeslike, ".");
+                strcat(auxiliarDeslike, login);
+
+                //region Container da postagem
+                printf("<div class='post-container'>");
+
+                // Usuário de origem
+                // printf("<p class='usrname'>Usuario: %s</p>", nPostagem.usrOrigem);
+
+                // Mensagem em si
+                printf("<span class='post-usrmsg'>%s</span>", nPostagem.msg);
+
+                // Abre a div btn-container
+                printf("<div class='btn-container'>");
+
+                // Botão de like
+                printf("<form action=\"DLike.cgi\" method=\"post\">\n"
+                       "    <input type=\"hidden\" name=\"like\" value=%s />\n"
+                       "    <input type=\"hidden\" name=\"login\" value=%s />\n"
+                       "    <input type=\"hidden\" name=\"senha\" value=%s />\n"
+                       "    <input type=\"hidden\" name=\"id\" value=%s />\n"
+                       "    <input type=\"submit\" value= \"%d %s%s\" class='post-btn-like'/>\n"
+                       "</form>\n",
+                       auxiliarLike, login, senha, id, nPostagem.like, "Like", nPostagem.like > 2 ? "s" : "" );
+
+                // Botão de deslike
+                printf("<form action=\"DLike.cgi\" method=\"post\">\n"
+                       "    <input type=\"hidden\" id=\"deslike\" name=\"deslike\" value=%s />\n"
+                       "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
+                       "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />\n"
+                       "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
+                       "    <input type=\"submit\" value=\"%d %s%s\" class='post-btn-deslike' />\n"
+                       "</form>" ,
+                       auxiliarDeslike, login, senha, id, nPostagem.deslike, "Deslike", nPostagem.deslike > 2 ? "s" : "" );
+
+                // Fecha a div btn-container
+                printf("</div>");
+
+                // Fecha a div post-container
+                printf("</div>");
+
                 //a variavel i (que imprime i postagens do usuario) só sera incrementada se a postagem tiver sido impressa
                 i++;
             }
@@ -156,54 +164,87 @@ void pontuacao (char path[255], int idUsuario)
 int main()
 {
     usuario entrar;
-    char dados[255], login[25], senha[45], id[15], usuario[25], qtsPostagens[10];
+    char dados[255], login[25], senha[45], id[15], usr[25], qtsPostagens[10];
+
+    // Lê a entrada-padrão
     fgets(dados, sizeof(dados), stdin);
+
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
     capturarQuery("id", dados, id);
-    capturarQuery("usuario", dados, usuario);
+    capturarQuery("usuario", dados, usr);
     capturarQuery("carregar", dados, qtsPostagens);
+
     //mudar diretorio caso o nome do registro seja outro
     fp = fopen("../trabalho-4/_registros/usuarios.bin", "rb");
     fread (&entrar, sizeof(entrar), 1, fp);
+
+
     //faz uma busca para verificar se o usuario pesquisado esta registrado no arquivo
     int i = 0;
-    while (!feof(fp) && strcmp(entrar.usrname, usuario) != 0)
+    while (!feof(fp) && strcmp(entrar.usrname, usr) != 0)
     {
         fseek (fp, i*sizeof(entrar), SEEK_SET);
         fread (&entrar, sizeof(entrar), 1, fp);
         i++;
     }
     fclose (fp);
+
     //caso o usuario seja achado, vai ser criada uma pagina com as postagens
-    if (strcmp (entrar.usrname, usuario) == 0)
+    if (strcmp (entrar.usrname, usr) == 0)
     {
         printf("%s%c%c\n", "Content-Type:text/html;charset=UTF-8",13,10);
-        printf ("<!DOCTYPE html>");
-        printf ("<html lang=\"pt-br\">");
-        printf ("<head>");
-        printf ("<title>Perfil de %s</title>", usuario);
-        printf ("<meta charset=\"utf-8\">");
-        printf ("</head>");
-        printf ("<body>");
-        printf ("<form action=\"postagem.cgi\" method=\"post\">");
-        printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
-        printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
-        printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-        printf ("<input type=\"submit\" value=\"Pagina Principal\"/>");
-        printf ("</form>");
-        pontuacao("../trabalho-4/_registros/usuarios.bin", entrar.id);
-        printf ("<h2>Postagens de %s</h2>", usuario);
-        printf ("<br>");
-        getLastestPostModificado(atoi(qtsPostagens), "../trabalho-4/_registros/registroPostagens.bin", login, senha, id, usuario);
+
+        // Imprime o cabeçalho
+        printf("<!DOCTYPE html>\n"
+               "<html>\n\n"
+               "<head>\n"
+               "    <meta charset='UTF-8'>\n"
+               "    <title>AKB! - Perfil de @%s</title>\n"
+               "    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>\n"
+               "</head>\n"
+               "<body>",
+               usr );
+
+        // Header
+        printf("<header class='gradiente-3'>\n"
+               "    <h1 class='fnt-lobster text-big'>Azkaboard!</h1>\n"
+               "    <a href='../trabalho-4/index.html' class='dot gradiente-btn btn btn-sair'>Sair</a>\n"
+               "</header>");
+
+        // Apresentação
+        printf("<div class='usr-info'>\n"
+               "    <img src='../trabalho-4/_img/%destrelas.png' class='img-pontuacao'>\n"
+               "    <span class='usrFullName'>Postagens de %s</span>\n"
+               "    <span class='usrNickName' style='cursor: default;'>@%s</span>\n"
+               "</div>",
+               getPoints(entrar.id, "../trabalho-4/_registros/usuarios.bin"), entrar.fullName, entrar.usrname );
+
+        // Botão para voltar à página inicial
+        printf("<form action=\"postagem.cgi\" method=\"post\">\n"
+               "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
+               "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />\n"
+               "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
+               "    <input type=\"submit\" value=\"Pagina Principal\" id='btn-pagina-principal'/>\n"
+               "</form>",
+               login, senha, id );
+
+
+        getLastestPostModificado(atoi(qtsPostagens), "../trabalho-4/_registros/registroPostagens.bin", login, senha, id, usr);
+
+
+        // Botão "carregar mais" + Finaliza o documento
         printf ("<form action=\"carregarMaisPerfil.cgi\" method=\"post\">");
-        printf ("<input type=\"submit\" value=\"Carregar mais\"/>");
+        printf ("<input type=\"submit\" value=\"Carregar mais\" id='btn-carregar-mais'/>");
         printf ("</div>");
         printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
         printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
         //agora o id fica como imput escondido
         printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-        printf ("<input type=\"hidden\" id=\"usuario\" name=\"usuario\" value=%s />", usuario);
+        printf ("<input type=\"hidden\" id=\"usuario\" name=\"usuario\" value=%s />", usr);
         printf ("<input type=\"hidden\" id=\"quantidade\" name=\"carregar\" value=%d />", atoi(qtsPostagens) + 10);
         printf ("</form>");
         printf ("</body>");
@@ -214,19 +255,31 @@ int main()
     else
     {
         printf("%s%c%c\n", "Content-Type:text/html;charset=UTF-8",13,10);
-        printf ("<!DOCTYPE html>");
-        printf ("<html lang=\"pt-br\">");
-        printf ("<head>");
-        printf ("<title>Perfil de %s</title>", usuario);
-        printf ("<meta charset=\"utf-8\">");
-        printf ("</head>");
-        printf ("<body>");
-        printf ("Nao foi possivel achar o usuario");
+
+
+        // Imprime o cabeçalho
+        printf("<!DOCTYPE html>\n"
+               "<html>\n\n"
+               "<head>\n"
+               "    <meta charset='UTF-8'>\n"
+               "    <title>404 - @%s nao foi encontrado</title>\n"
+               "    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>\n"
+               "</head>\n"
+               "<body>",
+               usr );
+
+        printf ("<div class='erro'>\n"
+                "    <h1>Voce chamou, mas ninguem ouviu</h1>\n"
+                "    <p>Aparentemente o usuario que voce quer tanto ver nao existe, mas olhe pelo lado positivo: um nick legal esta disponivel!</p>\n"
+                "</div>");
         printf ("<form action=\"armazenarPostagem.cgi\" method=\"post\">");
         printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
         printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
         printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-        printf ("<input type=\"submit\" value=\"Pagina Principal\"/>");
+        printf ("<input type=\"submit\" value=\"Me tire daqui.\"/>");
         printf ("</form>");
         printf ("</body></html>");
     }

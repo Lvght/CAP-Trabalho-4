@@ -110,3 +110,26 @@ input[type=submit]:not(.post-btn-like, .post-btn-deslike) {
     color: #f2f2f2;
     text-shadow: 0 2px 5px rgba(0, 0, 0, .2);
 }
+
+.erro {
+    width: 55%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.erro h1 {
+    font-family: 'Lobster', serif;
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+
+.erro p {
+    font-size: 1.4em;
+}
+
+#btn-voltar-pp {
+    display: block;
+    width: 55%;
+    font-size: 1.3em;
+    margin: auto;
+}

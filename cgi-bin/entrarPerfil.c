@@ -206,7 +206,7 @@ int main()
                "<html>\n\n"
                "<head>\n"
                "    <meta charset='UTF-8'>\n"
-               "    <title>AKB! - @%s</title>\n"
+               "    <title>AKB! - Perfil de @%s</title>\n"
                "    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>\n"
                "    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>\n"
                "    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>\n"
@@ -261,19 +261,38 @@ int main()
     else
     {
         printf("%s%c%c\n", "Content-Type:text/html;charset=UTF-8",13,10);
-        printf ("<!DOCTYPE html>");
-        printf ("<html lang=\"pt-br\">");
-        printf ("<head>");
-        printf ("<title>Perfil de %s</title>", usr);
-        printf ("<meta charset=\"utf-8\">");
-        printf ("</head>");
-        printf ("<body>");
-        printf ("Nao foi possivel achar o usuario");
+
+
+        // Imprime o cabeçalho
+        printf("<!DOCTYPE html>\n"
+               "<html>\n\n"
+               "<head>\n"
+               "    <meta charset='UTF-8'>\n"
+               "    <title>404 - @%s nao foi encontrado</title>\n"
+               "    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>\n"
+               "    <link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>\n"
+               "</head>\n"
+               "<body>",
+               usr );
+
+        // Header
+        printf("<header class='gradiente-3'>\n"
+               "    <h1 class='fnt-lobster text-big'>Azkaboard!</h1>\n"
+               "    <a href='../trabalho-4/index.html' class='dot gradiente-btn btn btn-sair'>Sair</a>\n"
+               "</header>");
+
+        printf ("<div class='erro'>\n"
+                "    <h1>Voce chamou, mas ninguem ouviu</h1>\n"
+                "    <p>Aparentemente o usuario que voce quer tanto ver nao existe, mas olhe pelo lado positivo: um nick legal esta disponivel!</p>\n"
+                "</div>");
+
         printf ("<form action=\"postagem.cgi\" method=\"post\">");
         printf ("<input type=\"hidden\" id=\"login\" name=\"login\" value=%s />", login);
         printf ("<input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />", senha);
         printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
-        printf ("<input type=\"submit\" value=\"Pagina Principal\"/>");
+        printf ("<input type=\"submit\" value=\"Me tire daqui\" id=\"btn-voltar-pp\"/>");
         printf ("</form>");
         printf ("</body></html>");
     }
