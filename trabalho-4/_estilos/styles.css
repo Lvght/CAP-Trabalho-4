@@ -130,6 +130,16 @@ input[type=submit]:not(.post-btn-like, .post-btn-deslike) {
     background: linear-gradient(to right, #e47545, #e44656);
 }
 
+.invisible-link {
+    cursor: pointer;
+    color: #f2f2f2;
+    text-decoration: inherit;
+}
+
+.invisible-link:hover {
+    color: #f2f2f2;
+}
+
 .fnt-lobster {
     font-family: 'Lobster', serif;
 }

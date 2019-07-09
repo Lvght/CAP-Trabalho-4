@@ -1,4 +1,3 @@
-Likes=1&Deslikes=0
-abc
-vinny
-suiciniv
+Likes=0&Deslikes=0
+2
+lordlucas

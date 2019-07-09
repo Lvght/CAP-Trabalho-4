@@ -1,4 +1,3 @@
-Likes=1&Deslikes=0
-abc
-vinql
-vinny
+Likes=0&Deslikes=0
+2
+lordlucas
