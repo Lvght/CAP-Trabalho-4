@@ -264,7 +264,7 @@ int main()
            "        <h2 class='txt-indicator'> Digite aqui a sua mensagem </h2> \n"
            "    </div>\n"
            "    <div id=\"msg\">\n"
-           "        <input type='text' id=\"postagem\" name=\"post\" class='input-txt' maxlength='160' pattern='[a-zA-Z]*' required/>\n"
+           "        <input type='text' id=\"postagem\" name=\"post\" class='input-txt' maxlength='160' pattern='^[a-zA-Z\\s]*$' required/>\n"
            "        <input type='submit' class='btn' id='btn-submit' value='Enviar' />\n"
            "    </div>\n"
            "    <input type='hidden' id=\"login\" name=\"login\" value=%s />\n"
