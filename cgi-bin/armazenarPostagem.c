@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "scripts.c"
+
 FILE *fp;
 
 int capturarQuery (char varname[15], char query_string[255], char resposta[65])
@@ -30,14 +32,6 @@ int capturarQuery (char varname[15], char query_string[255], char resposta[65])
     return 1;
 }
 
-typedef struct x
-{
-    int ID;
-    char usrOrigem[25];
-    int like;
-    int deslike;
-    char msg[180];
-}postagem;
 
 int main()
 {
@@ -45,6 +39,7 @@ int main()
     postagem postUser;
     int auxiliar = 0;
     char dados[255];
+    usuario db;
 
     // Lê a entrada padrão
     fgets(dados, sizeof(dados), stdin);
@@ -53,7 +48,8 @@ int main()
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
     //agora o cgi recebe também o id do usuario
-    capturarQuery("id", dados, id);
+    getUsuarioByUsrname(login, "../trabalho-4/_registros/usuarios.bin", &db);
+    itoa (db.id, id, 10);
     capturarQuery("post", dados, mensagem);
     strcpy(postUser.usrOrigem, login);
     postUser.like = 0;
@@ -104,9 +100,9 @@ int main()
     //necessario passar o id para o proximo cgi
     printf ("<input type=\"hidden\" id=\"id\" name=\"id\" value=%s />", id);
     printf ("</form>");
-//    printf ("<script>");
-//    printf ("document.getElementById(\"autosend\").submit();");
-//    printf ("</script>");
+    printf ("<script>");
+    printf ("document.getElementById(\"autosend\").submit();");
+    printf ("</script>");
     printf ("</body>");
     printf ("</html>");
 }

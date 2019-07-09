@@ -290,11 +290,11 @@ int main()
     printf("<form action=\"carregarMais.cgi\" method=\"post\">\n"
            "    <input type=\"submit\" value=\"Carregar mais\" id='btn-carregar-mais'>\n"
            "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
-           "    <input type=\"hidden\" id=\"quantidade\" name=\"carregar\" value=\"20\" />\n"
+           "    <input type=\"hidden\" id=\"quantidade\" name=\"carregar\" value=%d />\n"
            "    <input type=\"hidden\" id=\"senha\" name=\"senha\" value=%s />\n"
            "    <input type=\"hidden\" id=\"id\" name=\"id\" value=%s />\n"
            "</form>",
-           db.usrname, db.password, id );
+           db.usrname, atoi(qtsPostagens) + 10, db.password, id );
 
     // Finaliza o documento
     printf ("</body>");

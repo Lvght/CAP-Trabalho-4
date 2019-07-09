@@ -272,7 +272,7 @@ int main()
            "     <!--agora o id fica como imput escondido-->\n"
            "    <input type='hidden' id=\"id\" name=\"id\" value=%s />\n"
            "</form>",
-           login, login, senha, id );
+           login, senha, id );
     printf("</div>");
 
     // Encerra o subtop-container

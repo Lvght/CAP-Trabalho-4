@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "scripts.c"
+
 FILE *fp;
 
 int capturarQuery (char varname[15], char query_string[255], char resposta[65])
@@ -93,13 +95,15 @@ void alterarPontuacao (char path[255], int IDPostUser, char interacao[10])
 
 int main()
 {
+    usuario db;
     char login[25], senha[45], idPostagem[10], usuario[25], interacao[10], buffer[100], likes[10], deslikes[10], dados[255], IDPostUser[10], id[10];
     fgets(dados, sizeof(dados), stdin);
     pegarDados(interacao, idPostagem, usuario, dados);
     capturarQuery("login", dados, login);
     capturarQuery("senha", dados, senha);
     //recebe o id
-    capturarQuery("id", dados, id);
+    getUsuarioByUsrname(login, "../trabalho-4/_registros/usuarios.bin", &db);
+    itoa (db.id, id, 10);
 
     char caminho[100];
     strcpy(caminho, "../trabalho-4/_registros/");
