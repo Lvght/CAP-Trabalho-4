@@ -94,7 +94,7 @@ int getPoints(int ID_Usuario, const char * path) {
 
     FILE *fp;
     usuario u;
-    float aux;
+    double aux;
 
     // Caso a abertura falhe
     if ( (fp = fopen(path, "rb")) == NULL) return -1;
@@ -103,9 +103,9 @@ int getPoints(int ID_Usuario, const char * path) {
     fseek(fp, ID_Usuario * sizeof(u), SEEK_SET);
     fread(&u, sizeof(u), 1, fp);
 
-    aux = u.likes/(u.likes + u.deslikes);
+    aux = u.likes/( (double) u.likes + (double) u.deslikes);
 
-    printf("%s | %d | %d ", u.usrname, u.likes, u.deslikes );
+//    printf("%s | Aux: %lf | %d | %d ", u.usrname, aux, u.likes, u.deslikes );
 
     if (aux < 0.1) return 0;
     if (aux < 0.2) return 1;
