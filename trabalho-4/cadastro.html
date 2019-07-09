@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset='UTF-8'>
+    <title>AKB! - @%s</title>
+    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>
+    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>
+    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>
+    <link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>
 </head>
 <body>
 
-<form method="post" action="../cgi-bin/cadastro.cgi">
-    <input name="usrname" placeholder="Nome de usuario" autocomplete="off">
-    <input name="password" placeholder="pin" autocomplete="off">
-    <input name="fullname" placeholder="Nome Completo" autocomplete="off">
+<header class='gradiente-3'>
+    <h1 class='fnt-lobster text-big'>Azkaboard!</h1>
+</header>
 
-    <input type="submit" value="Cadastrar">
-</form>
+<div class='usr-info initial-info'>
+    <span class='usrFullName'>Crie sua conta</span>
+    <span>Cadastre-se abaixo para acessar o seu perfil</span>
+
+    <form method="post" action="../cgi-bin/cadastro.cgi" id="login-form">
+
+        <label for="usrname">Nome de usuario (apenas letras)</label> <br>
+        <input name="usrname" type="text" id="usrname" class="input-txt" autocomplete="off" pattern="[a-zA-Z]*" maxlength="20" required>
+
+        <label for="fullname">Nome completo</label> <br>
+        <input name="fullname" type="text" id="fullname" class="input-txt" autocomplete="off" pattern="^[a-zA-Z\s]*$" maxlength="50" required>
+
+        <label for="password">Senha (apenas letras)</label> <br>
+        <input name="password" type="password" id="password" class="input-txt" autocomplete="off" pattern="[a-zA-Z]*" maxlength="40" required>
+
+        <input type="submit" value="Cadastre-se">
+    </form>
+</div>
 
 </body>
 </html>

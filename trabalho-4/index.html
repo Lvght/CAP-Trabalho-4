@@ -1,31 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Azkaboard</title>
-    <script src="_js-scripts/cookies.js"></script>
+    <meta charset='UTF-8'>
+    <title>AKB! - @%s</title>
+    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>
+    <link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>
+    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>
+    <link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>
 </head>
-
 <body>
 
-<button onclick="isLoggedIn()">Verifica login</button>
-<button onclick="setLogin()">Faz o login</button>
-<button onclick="destroyCookie('loggedin')">Faz o logout</button>
+<header class='gradiente-3'>
+    <h1 class='fnt-lobster text-big'>Azkaboard!</h1>
+</header>
 
-<br>
-<br>
-<a href="cadastro.html">Cadastro ></a>
-<br>
-<br>
+<div class='usr-info initial-info'>
+    <span class='usrFullName'>Bem-vindo ao AKB!</span>
+    <span><a href="cadastro.html">Registre-se gratuitamente</a> ou faça login abaixo.</span>
 
-<form method="post" action="../cgi-bin/login.cgi">
-    <h1>Login</h1>
-    <input name="usrname" placeholder="usr name" autocomplete="off">
-    <input name="password" placeholder="pin" autocomplete="off">
+    <form method="post" action="../cgi-bin/login.cgi" id="login-form">
 
-    <input type="submit" value="Enviar">
-</form>
+        <label for="usrname">Nome de usuario</label> <br>
+        <input name="usrname" type="text" id="usrname" class="input-txt" autocomplete="off" pattern="[a-zA-Z]*" maxlength="20" required>
+
+        <label for="password">Senha</label> <br>
+        <input name="password" type="password" id="password" class="input-txt" autocomplete="off" pattern="[a-zA-Z]*" maxlength="40" required>
+
+        <input type="submit" value="Enviar">
+    </form>
+</div>
+
+<footer class="gradiente-3">
+    <ul>
+        <li>Trabalho 4 - CAP</li>
+        <li>Andre Luis Rodrigues Junior</li>
+        <li>Lucas Machado Cid</li>
+        <li>Vinicius Quaresma da Luz</li>
+    </ul>
+</footer>
+
+
 </body>
 
 </html>

@@ -1,14 +1,20 @@
-<DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	<html>
-	<head><meta charset="utf-8" />
-	<title> Login </title>
-	</head>
-	<body>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset='UTF-8'>
+	<title>AKB! - @%s</title>
+	<link href='../trabalho-4/_estilos/classes.css' rel='stylesheet'>
+	<link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>
+	<link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>
+	<link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>
+</head>
+<body>
 	<form action="../cgi-bin/postagem.cgi" method="post">
 		<div id="title"> <h1> Login </h1> </div>
 		<div id="graus">
 			<label for="username">login</label>
-			<input type="text" id="login" name="login" onkeydown="return true"/>
+			<input type="text" id="login" name="login" pattern="[a-zA-Z]" maxlength="5"/>
 			<input type="text" id="senha" name="senha"/>
 			<input type="submit" value="logar"/>
 		</div>

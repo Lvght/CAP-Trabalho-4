@@ -10,10 +10,10 @@ void perfil (char login[25], char senha[45], char id[15])
 {
     printf("<form action=\"entrarPerfil.cgi\" method=\"post\">\n"
            "    <div id=\"subtitle\"> \n"
-           "        <h2 class='txt-indicator'> Procure por um usuario </h2> \n"
+           "        <h2 class='txt-indicator'>Procure um usuario</h2> \n"
            "    </div>\n"
            "    <div id=\"msg\">\n"
-           "        <input type=\"text\" id=\"usuario\" class='input-txt' name=\"usuario\"/>\n"
+           "        <input type=\"text\" id=\"usuario\" class='input-txt' name=\"usuario\" maxlength='20' pattern='[a-zA-Z]*' required/>\n"
            "        <input type=\"submit\" class='btn' id='btn-busca' value=\"Enviar\"/>\n"
            "    </div>\n"
            "    <input type=\"hidden\" id=\"login\" name=\"login\" value=%s />\n"
@@ -215,6 +215,7 @@ int main()
            "    <link href='../trabalho-4/_estilos/reset.css' rel='stylesheet'>\n"
            "    <link href='../trabalho-4/_estilos/postagens.css' rel='stylesheet'>\n"
            "    <link href='../trabalho-4/_estilos/styles.css' rel='stylesheet'>\n"
+           "    <script src='../trabalho-4/_js-scripts/scripts.js' type='text/javascript'></script>\n"
            "</head>\n"
            "<body>",
            db.usrname);
@@ -263,7 +264,7 @@ int main()
            "        <h2 class='txt-indicator'> Digite aqui a sua mensagem </h2> \n"
            "    </div>\n"
            "    <div id=\"msg\">\n"
-           "        <input type='text' id=\"postagem\" name=\"post\" class='input-txt'/>\n"
+           "        <input type='text' id=\"postagem\" name=\"post\" class='input-txt' maxlength='160' pattern='[a-zA-Z]*' required/>\n"
            "        <input type='submit' class='btn' id='btn-submit' value='Enviar' />\n"
            "    </div>\n"
            "    <input type='hidden' id=\"login\" name=\"login\" value=%s />\n"
